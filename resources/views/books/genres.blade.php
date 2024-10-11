@@ -1,6 +1,15 @@
 @extends('layouts.main')
 
 @section('container')
+    <style>
+        img {
+            border-radius: 5px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+
     <h1 class="mb-5">{{ $title }}</h1>
 
     <div class="container">
@@ -11,11 +20,9 @@
                         <div class="card text-bg-dark h-100" style="width: 100%; height: 300px;">
 
                             @if ($genre->image)
-                                <img src="{{ asset('storage/' . $genre->image) }}" alt="{{ $genre->name }}"
-                                    style="width: 100%; height: 100%; object-fit: cover;">
+                                <img src="{{ asset('storage/' . $genre->image) }}" alt="{{ $genre->name }}">
                             @else
-                                <img src="{{ asset('img/' . $genre->name . '.jpg') }}" alt="{{ $genre->name }}"
-                                    style="width: 100%; height: 100%; object-fit: cover;">
+                                <img src="{{ asset('img/' . $genre->name . '.jpg') }}" alt="{{ $genre->name }}">
                             @endif
 
                             <div class="card-img-overlay d-flex align-items-center p-0">

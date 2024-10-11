@@ -3,7 +3,7 @@
 @section('container')
 
     <h1 class="mb-4 text-center">{{ $title }}</h1>
-    
+
     <div class="row justify-content-center mb-5">
         <div class="col-md-6">
             <form action="/books">
@@ -40,7 +40,8 @@
 
             <div class="card-body text-center">
                 <h3 class="card-title">
-                    <a href="{{ route('books.show', ['book' => $books[0]->slug]) }}" class="text-decoration-none text-dark text-white">
+                    <a href="{{ route('books.show', ['book' => $books[0]->slug]) }}"
+                        class="text-decoration-none text-dark text-white">
                         {{ $books[0]->title }}
                     </a>
                 </h3>
@@ -50,11 +51,21 @@
                         <a href="{{ route('books.index', ['seller' => $books[0]->seller->username]) }}"
                             class="text-decoration-none">{{ $books[0]->seller->name }}</a>
                         in
-                        <a href="{{ route('books.index', ['genre' => $books[0]->genre->slug]) }}" class="text-decoration-none">
+                        <a href="{{ route('books.index', ['genre' => $books[0]->genre->slug]) }}"
+                            class="text-decoration-none">
                             {{ $books[0]->genre->name }}</a>
                     </small>
                 </p>
-                <a href="{{ route('books.show', ['book' => $books[0]->slug]) }}" class="text-decoration-none btn btn-primary">View details</a>
+                <div class="mt-auto d-flex justify-content-center gap-3">
+                    <a href="{{ route('books.show', ['book' => $books[0]->slug]) }}" class="btn btn-primary">View details</a>
+
+                    <form action="{{ route('carts.store', ['book' => $books[0]->slug]) }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" class="btn btn-primary d-flex">
+                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -65,7 +76,7 @@
                         <div class="card h-100">
                             <div class="position-absolute px-3 py-2"
                                 style="background-color: rgba(0, 0, 0, 0.6); border-radius: 5px 0 0 0">
-                                <a href="{{ route('books.index', ['book' => $book->genre->slug]) }}"
+                                <a href="{{ route('books.index', ['genre' => $book->genre->slug]) }}"
                                     class="text-white text-decoration-none">
                                     {{ $book->genre->name }}
                                 </a>
@@ -73,8 +84,7 @@
 
                             <div style="width: 100%; height: 200px;">
                                 @if ($book->image)
-                                    <img src="{{ asset('storage/' . $book->image) }}"
-                                        alt="{{ $book->genre->name }}"
+                                    <img src="{{ asset('storage/' . $book->image) }}" alt="{{ $book->genre->name }}"
                                         style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px 5px 0 0;">
                                 @else
                                     <img src="{{ asset('img/' . $book->genre->name . '.jpg') }}"
@@ -92,8 +102,17 @@
                                             class="text-decoration-none">{{ $book->seller->name }}</a>
                                     </small>
                                 </p>
-                                <div class="mt-auto">
-                                    <a href="{{ route('books.show', ['book' => $book->slug]) }}" class="btn btn-primary">View details</a>
+                                <div class="mt-auto d-flex justify-content-between">
+                                    <a href="{{ route('books.show', ['book' => $book->slug]) }}"
+                                        class="btn btn-primary">View details</a>
+
+                                    <form action="{{ route('carts.store', ['book' => $book->slug]) }}" method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary d-flex">
+                                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

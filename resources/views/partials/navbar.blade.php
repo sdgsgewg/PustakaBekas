@@ -1,10 +1,11 @@
 <nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom" data-bs-theme="dark">
     <div class="container">
         <a class="navbar-brand d-md-none" href="/">
-            <svg class="bi" width="24" height="24">
-                <use xlink:href="#aperture" />
-            </svg>
-            PustakaBekas
+            <div class="d-flex align-items-center gap-2" style="width: 40px; height: 40px;">
+                <img src="{{ asset('img/PustakaBekas.png') }}" alt=""
+                    style="width: 100%; height: 100%; object-fit: cover;">
+                <span>PustakaBekas</span>
+            </div>
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
@@ -22,11 +23,12 @@
                 <ul class="navbar-nav flex-grow-1 justify-content-between">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <svg class="bi" width="24" height="24">
-                                <use xlink:href="#aperture" />
-                            </svg>
-                        </a>
+                        <div style="width: 40px; height: 40px;">
+                            <a class="nav-link {{ Request::is('/') ? 'active' : '' }} p-0" href="/">
+                                <img src="{{ asset('img/PustakaBekas.png') }}" alt=""
+                                    style="width: 100%; height: 100%; object-fit: cover;">
+                            </a>
+                        </div>
                     </li>
 
                     <li class="nav-item">
@@ -44,7 +46,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('genres*') ? 'active' : '' }}"
-                            href="{{ route('genres.index') }}">Genres</a>
+                            href="{{ route('genres.index') }}">Genre</a>
                     </li>
 
                     <li class="nav-item">
