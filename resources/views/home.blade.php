@@ -37,7 +37,7 @@
                     </div>
                     <div class="{{ $loop->odd ? 'bg-body-tertiary' : 'bg-dark' }} shadow-sm mx-auto"
                         style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-                        <img src="{{ asset('img/' . $book->genre->name . '.jpg') }}" alt=""
+                        <img src="{{ asset('img/' . $book->category->name . '.jpg') }}" alt=""
                             style="height:100%; width:100%; object-fit: cover; border-radius: 21px 21px 0 0;">
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                         <p class="lead">{{ Str::limit($book->description, 20, '...') }}</p>
                     </div>
                     <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-                        <img src="{{ asset('img/' . $book->genre->name . '.jpg') }}" alt=""
+                        <img src="{{ asset('img/' . $book->category->name . '.jpg') }}" alt=""
                             style="height:100%; width:100%; object-fit: cover; border-radius: 21px 21px 0 0;">
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                         <p class="lead">{{ Str::limit($book->description, 20, '...') }}</p>
                     </div>
                     <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-                        <img src="{{ asset('img/' . $book->genre->name . '.jpg') }}" alt=""
+                        <img src="{{ asset('img/' . $book->category->name . '.jpg') }}" alt=""
                             style="height:100%; width:100%; object-fit: cover; border-radius: 21px 21px 0 0;">
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                         <p class="lead">{{ Str::limit($book->description, 20, '...') }}</p>
                     </div>
                     <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-                        <img src="{{ asset('img/' . $book->genre->name . '.jpg') }}" alt=""
+                        <img src="{{ asset('img/' . $book->category->name . '.jpg') }}" alt=""
                             style="height:100%; width:100%; object-fit: cover; border-radius: 21px 21px 0 0;">
                     </div>
                 </div>

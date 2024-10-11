@@ -91,5 +91,8 @@
         </form>
     </div>
 
-    <script src="{{ asset('js/books/script.js') }}"></script>
+    <script>
+        const value = "book";
+    </script>
+    <script src="{{ asset('js/script.js') }}"></script>
 @endsection

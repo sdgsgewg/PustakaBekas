@@ -1,8 +1,24 @@
 const title = document.querySelector("#title");
+const name = document.querySelector("#name");
 const slug = document.querySelector("#slug");
+const v = value;
 
-title.addEventListener("change", function () {
-    fetch("/dashboard/book/checkSlug?title=" + title.value)
+if (v === "book") {
+    title.addEventListener("change", function () {
+        fetch(`/dashboard/book/checkSlug?title=${title.value}`)
+            .then((response) => response.json())
+            .then((data) => (slug.value = data.slug));
+    });
+} else {
+    name.addEventListener("change", function () {
+        fetch(`/dashboard/${v}/checkSlug?name=${name.value}`)
+            .then((response) => response.json())
+            .then((data) => (slug.value = data.slug));
+    });
+}
+
+name.addEventListener("change", function () {
+    fetch(`/dashboard/${value}/checkSlug?name=` + name.value)
         .then((response) => response.json())
         .then((data) => (slug.value = data.slug));
 });

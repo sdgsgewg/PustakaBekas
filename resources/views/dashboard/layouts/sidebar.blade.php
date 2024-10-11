@@ -29,6 +29,13 @@
 
                 <ul class="nav flex-column">
                     <li class="nav-item">
+                        <a class="nav-link d-flex gap-2 {{ Request::is('dashboard/categories*') ? 'active' : 'text-muted' }}"
+                            aria-current="page" href="{{ route('admin.categories.index') }}">
+                            <i class="bi bi-grid"></i>
+                            Book Categories
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link d-flex gap-2 {{ Request::is('dashboard/genres*') ? 'active' : 'text-muted' }}"
                             aria-current="page" href="{{ route('admin.genres.index') }}">
                             <i class="bi bi-grid"></i>

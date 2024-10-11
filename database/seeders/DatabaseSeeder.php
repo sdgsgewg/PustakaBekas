@@ -3,10 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Book;
-use App\Models\Post;
 use App\Models\User;
-use App\Models\Category;
-use App\Models\Genre;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
@@ -43,20 +40,12 @@ class DatabaseSeeder extends Seeder
 
         User::factory(3)->create();
 
-        Genre::create([
-            'name' => 'Thriller',
-            'slug' => 'thriller'
-        ]);
-        Genre::create([
-            'name' => 'Romance',
-            'slug' => 'romance'
-        ]);
-        Genre::create([
-            'name' => 'Comedy',
-            'slug' => 'comedy'
+        $this->call([
+            CategorySeeder::class,
+            GenreSeeder::class
         ]);
 
-        Book::factory(15)->create();
+        Book::factory(15)->withGenres(1)->create();
         
     }
 }

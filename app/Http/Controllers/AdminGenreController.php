@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -15,6 +16,7 @@ class AdminGenreController extends Controller
     public function index()
     {
         return view('dashboard.genres.index', [
+            'categories' => Category::all(),
             'genres' => Genre::all()
         ]);
     }
@@ -24,7 +26,9 @@ class AdminGenreController extends Controller
      */
     public function create()
     {
-        return view('dashboard.genres.create');
+        return view('dashboard.genres.create', [
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -35,14 +39,12 @@ class AdminGenreController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|unique:genres|max:255',
             'slug' => 'required|unique:genres',
-            'image' => 'image|file|max:1024'
+            'category_id' => 'required'
         ]);
 
-        if($request->file('image')) {
-            $validatedData['image'] = $request->file('image')->store('genre-images');
-        }
-
         Genre::create($validatedData);
+
+        session(['category_id' => $request->category_id]);
 
         return redirect('/dashboard/genres')->with('success', 'New genre has been added!');
     }
@@ -61,7 +63,8 @@ class AdminGenreController extends Controller
     public function edit(Genre $genre)
     {
         return view('dashboard.genres.edit', [
-            'genre' => $genre
+            'genre' => $genre,
+            'categories' => Category::all()
         ]);
     }
 
@@ -72,7 +75,7 @@ class AdminGenreController extends Controller
     {
         $rules = [
             'name' => 'required|max:255',
-            'image' => 'image|file|max:1024'
+            'category_id' => 'required'
         ];
 
         if( $request->slug != $genre->slug )
@@ -82,14 +85,9 @@ class AdminGenreController extends Controller
 
         $validatedData = $request->validate($rules);
 
-        if($request->file('image')) {
-            if($request->oldImage) {
-                Storage::delete($request->oldImage);
-            }
-            $validatedData['image'] = $request->file('image')->store('genre-images');
-        }
-
         Genre::where('id', $genre->id)->update($validatedData);
+
+        session(['category_id' => $request->category_id]);
 
         return redirect('/dashboard/genres')->with('success', 'Genre has been updated!');
     }
@@ -99,9 +97,6 @@ class AdminGenreController extends Controller
      */
     public function destroy(Genre $genre)
     {
-        if($genre->image) {
-            Storage::delete($genre->image);
-        }
         Genre::destroy($genre->id);
 
         return redirect('/dashboard/genres')->with('success', 'Genre has been deleted!');

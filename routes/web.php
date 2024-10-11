@@ -4,7 +4,7 @@ use App\Models\Book;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
-    UserController, LoginController, RegisterController, AdminGenreController, BookController, GenreController, CartController, DashboardBookController
+    UserController, LoginController, RegisterController, BookController, CategoryController, GenreController, CartController, DashboardBookController, AdminCategoryController, AdminGenreController
 };
 
 Route::view('/', 'home', ['title' => 'Home Page', 'books' => Book::all()]);
@@ -13,6 +13,7 @@ Route::view('/about', 'about', ['title' => 'About Us']);
 Route::resources([
     'books' => BookController::class,
     'genres' => GenreController::class,
+    'categories' => CategoryController::class,
     'users' => UserController::class
 ]);
 
@@ -33,12 +34,13 @@ Route::middleware('auth')->prefix('dashboard')->as('auth.')->group(function () {
     Route::get('/', fn() => view('dashboard.index'))->name('dashboard');
 
     Route::resource('books', DashboardBookController::class);
-
     Route::get('book/checkSlug', [DashboardBookController::class, 'checkSlug']);
 });
 
 Route::middleware([IsAdmin::class])->prefix('dashboard')->as('admin.')->group(function () {
     Route::resource('genres', AdminGenreController::class)->except('show');
+    Route::resource('categories', AdminCategoryController::class)->except('show');
 
     Route::get('genres/checkSlug', [AdminGenreController::class, 'checkSlug']);
+    Route::get('categories/checkSlug', [AdminCategoryController::class, 'checkSlug']);
 });

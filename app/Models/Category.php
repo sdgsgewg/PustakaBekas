@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Genre extends Model
+class Category extends Model
 {
     use HasFactory, Sluggable;
 
@@ -14,12 +14,12 @@ class Genre extends Model
 
     public function books()
     {
-        return $this->belongsToMany(Book::class, 'book_genres');
+        return $this->hasMany(Book::class);
     }
 
-    public function category()
+    public function genres()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasMany(Genre::class);
     }
 
     public function getRouteKeyName(): string

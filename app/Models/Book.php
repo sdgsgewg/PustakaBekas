@@ -11,7 +11,7 @@ class Book extends Model
     use HasFactory, Sluggable;
 
     protected $guarded = ['id'];
-    protected $with = ['genre', 'seller'];
+    protected $with = ['genres', 'category', 'seller'];
 
     public function scopeFilter($query, array $filters)
     {
@@ -22,8 +22,14 @@ class Book extends Model
          });
 
         $query->when( $filters['genre'] ?? false, function($query, $genre) {
-            return $query->whereHas('genre', function($query) use ($genre) {
+            return $query->whereHas('genres', function($query) use ($genre) {
                 $query->where('slug', $genre);
+            });
+        });
+
+        $query->when( $filters['category'] ?? false, function($query, $category) {
+            return $query->whereHas('category', function($query) use ($category) {
+                $query->where('slug', $category);
             });
         });
 
@@ -34,9 +40,14 @@ class Book extends Model
         );
     }
 
-    public function genre() 
+    public function genres() 
     {
-        return $this->belongsTo(Genre::class);
+        return $this->belongsToMany(Genre::class, 'book_genres');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function seller() 

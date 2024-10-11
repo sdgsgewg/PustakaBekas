@@ -29,11 +29,12 @@
 
                 @if ($books[0]->image)
                     <div style="max-height: 400px; overflow: hidden">
-                        <img src="{{ asset('storage/' . $books[0]->image) }}" alt="{{ $books[0]->genre->name }}"
+                        <img src="{{ asset('storage/' . $books[0]->image) }}" alt="{{ $books[0]->category->name }}"
                             style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px 5px 0 0;">
                     </div>
                 @else
-                    <img src="{{ asset('img/' . $books[0]->genre->name . '.jpg') }}" alt="{{ $books[0]->genre->name }}"
+                    <img src="{{ asset('img/' . $books[0]->category->name . '.jpg') }}"
+                        alt="{{ $books[0]->category->name }}"
                         style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px 5px 0 0;">
                 @endif
             </div>
@@ -51,13 +52,18 @@
                         <a href="{{ route('books.index', ['seller' => $books[0]->seller->username]) }}"
                             class="text-decoration-none">{{ $books[0]->seller->name }}</a>
                         in
-                        <a href="{{ route('books.index', ['genre' => $books[0]->genre->slug]) }}"
-                            class="text-decoration-none">
-                            {{ $books[0]->genre->name }}</a>
+                        @foreach ($books[0]->genres as $genre)
+                            @if (!$loop->first)
+                                ,
+                            @endif
+                            <a href="{{ route('books.index', ['genre' => $genre->slug]) }}" class="text-decoration-none">
+                                {{ $genre->name }}</a>
+                        @endforeach
                     </small>
                 </p>
                 <div class="mt-auto d-flex justify-content-center gap-3">
-                    <a href="{{ route('books.show', ['book' => $books[0]->slug]) }}" class="btn btn-primary">View details</a>
+                    <a href="{{ route('books.show', ['book' => $books[0]->slug]) }}" class="btn btn-primary">View
+                        details</a>
 
                     <form action="{{ route('carts.store', ['book' => $books[0]->slug]) }}" method="POST" class="d-inline">
                         @csrf
@@ -74,21 +80,21 @@
                 @foreach ($books->skip(1) as $book)
                     <div class="col-md-4 mb-3">
                         <div class="card h-100">
-                            <div class="position-absolute px-3 py-2"
+                            {{-- <div class="position-absolute px-3 py-2"
                                 style="background-color: rgba(0, 0, 0, 0.6); border-radius: 5px 0 0 0">
                                 <a href="{{ route('books.index', ['genre' => $book->genre->slug]) }}"
                                     class="text-white text-decoration-none">
                                     {{ $book->genre->name }}
                                 </a>
-                            </div>
+                            </div> --}}
 
                             <div style="width: 100%; height: 200px;">
                                 @if ($book->image)
-                                    <img src="{{ asset('storage/' . $book->image) }}" alt="{{ $book->genre->name }}"
+                                    <img src="{{ asset('storage/' . $book->image) }}" alt="{{ $book->category->name }}"
                                         style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px 5px 0 0;">
                                 @else
-                                    <img src="{{ asset('img/' . $book->genre->name . '.jpg') }}"
-                                        alt="{{ $book->genre->name }}"
+                                    <img src="{{ asset('img/' . $book->category->name . '.jpg') }}"
+                                        alt="{{ $book->category->name }}"
                                         style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px 5px 0 0;">
                                 @endif
                             </div>

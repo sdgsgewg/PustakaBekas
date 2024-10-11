@@ -45,8 +45,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('genres*') ? 'active' : '' }}"
-                            href="{{ route('genres.index') }}">Genre</a>
+                        <a class="nav-link {{ Request::is('categories*') ? 'active' : '' }}"
+                            href="{{ route('categories.index') }}">Category</a>
                     </li>
 
                     <li class="nav-item">

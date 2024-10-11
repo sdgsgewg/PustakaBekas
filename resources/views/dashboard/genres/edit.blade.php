@@ -32,24 +32,24 @@
             </div>
 
             <div class="mb-3">
-                <label for="image" class="form-label">Genre Image</label>
-                <input type="hidden" name="oldImage" value="{{ $genre->image }}">
-                @if ($genre->image)
-                    <img src="{{ asset('storage/' . $genre->image) }}"
-                        class="img-preview img-fluid mb-3 col-sm-5 d-block">
-                @else
-                    <img class="img-preview img-fluid mb-3 col-sm-5">
-                @endif
-                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
-                    name="image" onchange="previewImage()">
-                @error('image')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                <label for="category" class="form-label">Category</label>
+                <select class="form-select" name="category_id">
+                    @foreach ($categories as $category)
+                        @if (old('category_id', $genre->category_id) == $category->id)
+                            <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                        @else
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </div>
 
             <button type="submit" class="btn btn-primary">Update Genre</button>
         </form>
     </div>
 
-    <script src="{{ asset('js/genres/script.js') }}"></script>
+    <script>
+        const value = "genres";
+    </script>
+    <script src="{{ asset('js/script.js') }}"></script>
 @endsection

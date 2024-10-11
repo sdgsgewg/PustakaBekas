@@ -6,49 +6,74 @@
     </div>
 
     @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show col-lg-6" role="alert">
+        <div class="alert alert-success alert-dismissible fade show col-lg-8" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
+    <div class="table-responsive small col-lg-8">
+        <a href="{{ route('admin.genres.create') }}" class="btn btn-primary mb-3">Create New Genre</a>
 
-    <div class="table-responsive small col-lg-6">
-        <a href="{{ route('admin.genres.create') }}" class="btn btn-primary mb-3">Create new Genre</a>
+        <div class="accordion" id="accordionExample">
+            @foreach ($categories as $ctg)
+                <?php $idx = 0; ?>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button {{ session('category_id') == $ctg->id ? '' : 'collapsed' }}"
+                            type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $loop->iteration }}"
+                            aria-expanded="{{ session('category_id') == $ctg->id ? 'true' : 'false' }}"
+                            aria-controls="collapse{{ $loop->iteration }}">
+                            {{ $ctg->name }}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ $loop->iteration }}"
+                        class="accordion-collapse collapse {{ session('category_id') == $ctg->id ? 'show' : '' }}"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Genre Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($genres as $genre)
+                                        @if ($genre->category_id == $ctg->id)
+                                            <?php $idx++; ?>
+                                            <tr>
+                                                <td>{{ $idx }}</td>
+                                                <td>{{ $genre->name }}</td>
+                                                <td>
 
-        <table class="table table-striped table-sm">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Genre Name</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($genres as $genre)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $genre->name }}</td>
-                        <td>
+                                                    <a href="{{ route('admin.genres.edit', ['genre' => $genre->slug]) }}"
+                                                        class="badge bg-warning">
+                                                        <i class="bi bi-pencil-square icon"></i>
+                                                    </a>
 
-                            <a href="{{ route('admin.genres.edit', ['genre' => $genre->slug]) }}"
-                                class="badge bg-warning">
-                                <i class="bi bi-pencil-square icon"></i>
-                            </a>
+                                                    <form
+                                                        action="{{ route('admin.genres.destroy', ['genre' => $genre->slug]) }}"
+                                                        method="POST" class="d-inline">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button class="badge bg-danger border-0"
+                                                            onclick="return confirm('Are you sure?')">
+                                                            <i class="bi bi-x-circle icon"></i>
+                                                        </button>
+                                                    </form>
 
-                            <form action="{{ route('admin.genres.destroy', ['genre' => $genre->slug]) }}"
-                                method="POST" class="d-inline">
-                                @method('DELETE')
-                                @csrf
-                                <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')">
-                                    <i class="bi bi-x-circle icon"></i>
-                                </button>
-                            </form>
-
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
 @endsection
