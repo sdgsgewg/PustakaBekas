@@ -9,27 +9,38 @@
                     By.
                     <a href="{{ route('books.index', ['seller' => $book->seller->username]) }}"
                         class="text-decoration-none">{{ $book->seller->name }}</a>
-                    in
-                    @foreach ($book->genres as $genre)
-                        @if (!$loop->first)
-                            , 
-                        @endif
-                        <a href="{{ route('books.index', ['genre' => $genre->slug]) }}" class="text-decoration-none">
-                            {{ $genre->name }}</a>
-                    @endforeach
                 </p>
 
                 @if ($book->image)
                     <div style="max-height: 350px; overflow:hidden">
-                        <img src="{{ asset('storage/' . $book->image) }}" alt="{{ $book->genres->name }}" class="img-fluid">
+                        <img src="{{ asset('storage/' . $book->image) }}" alt="{{ $book->category->name }}" class="img-fluid">
                     </div>
                 @else
-                    <img src="{{ asset('img/' . $book->genres->name . '.jpg') }}" alt="{{ $book->genres->name }}"
+                    <img src="{{ asset('img/' . $book->category->name . '.jpg') }}" alt="{{ $book->category->name }}"
                         width="1200" height="400" class="img-fluid">
                 @endif
 
                 <article class="my-3 fs-5">
-                    {!! $book->description !!}
+                    <p>Category:
+                        <a href="{{ route('books.index', ['category' => $book->category->slug]) }}"
+                            class="text-decoration-none">{{ $book->category->name }}</a>
+                    </p>
+                    <p>Genre:
+                        @foreach ($book->genres as $genre)
+                            @if (!$loop->first)
+                                ,
+                            @endif
+                            <a href="{{ route('books.index', ['genre' => $genre->slug]) }}"
+                                class="text-decoration-none">{{ $genre->name }}</a>
+                        @endforeach
+                    </p>
+                    <p>Author: {{ $book->author }}</p>
+                    <p>Stock: {{ $book->stock }}</p>
+                    <p>Price: Rp{{ number_format($book->price, 2, ',', '.') }}</p>
+                    <hr>
+                    <h2>Synopsis</h2>
+                    <p>{!! $book->synopsis !!}</p>
+                    <hr>
                 </article>
 
                 <a href="{{ route('books.index') }}" class="d-block mt-3">&laquo; Back to all books</a>

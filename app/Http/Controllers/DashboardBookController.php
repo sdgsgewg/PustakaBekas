@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Category;
 use App\Models\Genre;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -28,8 +29,15 @@ class DashboardBookController extends Controller
     public function create()
     {
         return view('dashboard.books.create', [
+            'categories' => Category::all(),
             'genres' => Genre::all()
         ]);
+    }
+
+    public function getGenresByCategory($categoryId)
+    {
+        $genres = Genre::where('category_id', $categoryId)->get();
+        return response()->json($genres);
     }
 
     /**
@@ -40,21 +48,27 @@ class DashboardBookController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:books',
-            'genre_id' => 'required',
+            'category_id' => 'required',
             'author' => 'required',
-            'price' => 'required',
-            'image' => 'image|file|max:1024',
-            'description' => 'required'
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'image' => 'nullable|image|file|max:1024',
+            'synopsis' => 'required',
+            'genre_id' => 'required|array',
+            'genre_id.*' => 'exists:book_genres,id'
         ]);
 
-        if($request->file('image')) {
+        // // Check if a new image file is uploaded
+        if ($request->hasFile('image')) {
             $validatedData['image'] = $request->file('image')->store('book-images');
         }
 
         /** @var \App\Models\User $user */
         $validatedData['user_id'] = Auth::user()->id;
 
-        Book::create($validatedData);
+        // Create the book entry
+        $book = Book::create($validatedData);
+        $book->genres()->attach($request->input('genre_id'));
 
         return redirect('/dashboard/books')->with('success', 'New book has been added!');
     }
@@ -74,9 +88,12 @@ class DashboardBookController extends Controller
      */
     public function edit(Book $book)
     {
+        $bookGenres = $book->genres->pluck('id')->toArray();
+
         return view('dashboard.books.edit', [
             'book' => $book,
-            'genres' => Genre::all()
+            'categories' => Category::all(),
+            'bookGenres' => $bookGenres
         ]);
     }
 
@@ -87,15 +104,17 @@ class DashboardBookController extends Controller
     {
         $rules = [
             'title' => 'required|max:255',
-            'genre_id' => 'required',
+            'category_id' => 'required',
             'author' => 'required',
-            'price' => 'required',
-            'image' => 'image|file|max:1024',
-            'description' => 'required'
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'image' => 'nullable|image|file|max:1024',
+            'synopsis' => 'required',
+            'genre_id' => 'required|array',
+            'genre_id.*' => 'exists:book_genres,id'
         ];
 
-        if( $request->slug != $book->slug )
-        {
+        if($request->slug != $book->slug) {
             $rules['slug'] = 'required|unique:books';
         }
 
@@ -110,7 +129,8 @@ class DashboardBookController extends Controller
 
         $validatedData['user_id'] = Auth::user()->id;
 
-        Book::where('id', $book->id)->update($validatedData);
+        $book->update($validatedData);
+        $book->genres()->sync($validatedData['genre_id']);
 
         return redirect('/dashboard/books')->with('success', 'Book has been updated!');
     }

@@ -24,8 +24,9 @@ class BookFactory extends Factory
             'title' => fake()->sentence(mt_rand(2, 5)),
             'slug' => fake()->slug(),
             'author' => fake()->name(),
-            'description' => fake()->paragraph(mt_rand(2, 4)),
+            'synopsis' => fake()->paragraph(mt_rand(2, 4)),
             'price' => mt_rand(50000, 100000),
+            'stock' => mt_rand(1, 20),
             'user_id' => mt_rand(1, 4),
             'category_id' => mt_rand(1, 2)
         ];

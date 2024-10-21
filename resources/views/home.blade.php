@@ -33,7 +33,7 @@
                     class="{{ $loop->odd ? 'text-bg-dark' : 'bg-body-tertiary' }} me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden d-flex flex-column justify-content-between">
                     <div class="my-3 py-3">
                         <h2 class="display-5">{{ $book->title }}</h2>
-                        <p class="lead">{{ Str::limit($book->description, 20, '...') }}</p>
+                        <p class="lead">{{ Str::limit($book->synopsis, 20, '...') }}</p>
                     </div>
                     <div class="{{ $loop->odd ? 'bg-body-tertiary' : 'bg-dark' }} shadow-sm mx-auto"
                         style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
@@ -50,7 +50,7 @@
                     class="{{ $loop->odd ? 'bg-body-tertiary' : 'text-bg-primary' }} me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden d-flex flex-column justify-content-between">
                     <div class="my-3 py-3">
                         <h2 class="display-5">{{ $book->title }}</h2>
-                        <p class="lead">{{ Str::limit($book->description, 20, '...') }}</p>
+                        <p class="lead">{{ Str::limit($book->synopsis, 20, '...') }}</p>
                     </div>
                     <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
                         <img src="{{ asset('img/' . $book->category->name . '.jpg') }}" alt=""
@@ -66,7 +66,7 @@
                     class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden d-flex flex-column justify-content-between">
                     <div class="my-3 p-3">
                         <h2 class="display-5">{{ $book->title }}</h2>
-                        <p class="lead">{{ Str::limit($book->description, 20, '...') }}</p>
+                        <p class="lead">{{ Str::limit($book->synopsis, 20, '...') }}</p>
                     </div>
                     <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
                         <img src="{{ asset('img/' . $book->category->name . '.jpg') }}" alt=""
@@ -82,7 +82,7 @@
                     class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden d-flex flex-column justify-content-between">
                     <div class="my-3 p-3">
                         <h2 class="display-5">{{ $book->title }}</h2>
-                        <p class="lead">{{ Str::limit($book->description, 20, '...') }}</p>
+                        <p class="lead">{{ Str::limit($book->synopsis, 20, '...') }}</p>
                     </div>
                     <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
                         <img src="{{ asset('img/' . $book->category->name . '.jpg') }}" alt=""

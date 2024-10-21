@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoreCartRequest;
-use App\Http\Requests\UpdateCartRequest;
+use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
@@ -34,7 +33,7 @@ class CartController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCartRequest $request, Book $book)
+    public function store(Request $request, Book $book)
     {
         if (!$book) {
             return redirect()->back()->with('error', 'Book not found.');
@@ -53,8 +52,7 @@ class CartController extends Controller
         } else {
             $cart->books()->attach($book->id, ['quantity' => 1]);
         }
-
-        // Redirect to the cart page with success message
+        
         return redirect('/carts')->with('success', 'Book added to cart!');
     }
 
@@ -77,16 +75,34 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCartRequest $request, Cart $cart)
+    public function update(Request $request, Cart $cart)
     {
-        //
+        $bookId = $request->input('book_id');
+        $book = Book::find($bookId);
+
+        $validatedData = $request->validate([
+            'quantity' => 'required|integer|min:0|max:' . $book["stock"]
+        ]);
+
+        if($validatedData['quantity'] == 0) {
+            return $this->destroy($cart, $bookId);
+        }
+
+        $cart = Cart::find($cart->id);
+    
+        if ($cart) {
+            $cart->books()->updateExistingPivot($bookId, ['quantity' => $validatedData['quantity']]);
+    
+            return redirect()->back();
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cart $cart)
+    public function destroy(Cart $cart, $bookId)
     {
-        //
+        $cart->books()->detach($bookId);
+        return redirect()->back()->with('success', 'Item removed from cart.');
     }
 }

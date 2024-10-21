@@ -53,16 +53,44 @@
                                                         <i class="bi bi-pencil-square icon"></i>
                                                     </a>
 
-                                                    <form
-                                                        action="{{ route('admin.genres.destroy', ['genre' => $genre->slug]) }}"
-                                                        method="POST" class="d-inline">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button class="badge bg-danger border-0"
-                                                            onclick="return confirm('Are you sure?')">
-                                                            <i class="bi bi-x-circle icon"></i>
-                                                        </button>
-                                                    </form>
+                                                    <button type="button" class="badge bg-danger border-0"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#deleteModal-{{ $genre->id }}">
+                                                        <i class="bi bi-x-circle icon"></i>
+                                                    </button>
+
+                                                    <div class="modal fade" id="deleteModal-{{ $genre->id }}"
+                                                        tabindex="-1"
+                                                        aria-labelledby="deleteModalLabel-{{ $genre->id }}"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5"
+                                                                        id="deleteModalLabel-{{ $genre->id }}">
+                                                                        Confirm Deletion</h1>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Are you sure you want to delete the genre
+                                                                    "{{ $genre->name }}"?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Cancel</button>
+                                                                    <form
+                                                                        action="{{ route('admin.genres.destroy', ['genre' => $genre->slug]) }}"
+                                                                        method="POST" class="d-inline">
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Delete</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
                                                 </td>
                                             </tr>
@@ -76,4 +104,6 @@
             @endforeach
         </div>
     </div>
+
+    <script src="{{ asset('js/script.js') }}"></script>
 @endsection

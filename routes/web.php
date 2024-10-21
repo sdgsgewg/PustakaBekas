@@ -26,6 +26,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->post('/logout', [LoginController::class, 'logout']);
 
 Route::middleware('auth')->group(function () {
+    Route::get('carts/checkout', [CartController::class, 'checkout'])->name('carts.checkout');
     Route::resource('carts', CartController::class);
     Route::post('carts/store/{book:slug}', [CartController::class, 'store'])->name('carts.store');
 });
@@ -35,6 +36,7 @@ Route::middleware('auth')->prefix('dashboard')->as('auth.')->group(function () {
 
     Route::resource('books', DashboardBookController::class);
     Route::get('book/checkSlug', [DashboardBookController::class, 'checkSlug']);
+    Route::get('book/genres/{categoryId}', [DashboardBookController::class, 'getGenresByCategory'])->name('books.getGenresByCategory');
 });
 
 Route::middleware([IsAdmin::class])->prefix('dashboard')->as('admin.')->group(function () {

@@ -4,8 +4,8 @@
     <div class="d-flex flex-column justify-content-between align-items-start gap-2 pt-3 pb-3 mb-3 border-bottom">
         <h1 class="h2">Create New Genre</h1>
 
-        <a href="{{ route('admin.genres.index') }}" class="btn btn-success d-inline-flex"><i
-                class="bi bi-arrow-left me-2"></i> Cancel</a>
+        <a href="{{ route('admin.genres.index') }}" class="btn btn-success d-inline-flex"><i class="bi bi-arrow-left me-2"></i>
+            Cancel</a>
     </div>
 
     <div class="col-lg-8">
@@ -34,11 +34,9 @@
                 <label for="category" class="form-label">Category</label>
                 <select class="form-select" name="category_id">
                     @foreach ($categories as $category)
-                        @if (old('category_id') == $category->id)
-                            <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
-                        @else
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endif
+                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
                     @endforeach
                 </select>
             </div>
