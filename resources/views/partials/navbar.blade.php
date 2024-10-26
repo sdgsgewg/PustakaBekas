@@ -71,6 +71,18 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a class="dropdown-item d-flex {{ request()->routeIs('transactions.index') || request()->routeIs('transactions.show') ? 'active' : '' }}"
+                                        href="{{ route('transactions.index') }}">
+                                        <i class="bi bi-file-earmark-text me-2"></i> My Orders
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex {{ request()->routeIs('transactions.orderRequest') ? 'active' : '' }}"
+                                        href="{{ route('transactions.orderRequest') }}">
+                                        <i class="bi bi-inbox me-2"></i> Order Requests
+                                    </a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item d-flex {{ Request::is('users*') ? 'active' : '' }}"
                                         href="{{ route('users.index') }}">
                                         <i class="bi bi-person-circle me-2"></i> Profile

@@ -14,7 +14,7 @@ class Cart extends Model
     public function books()
     {
     return $this->belongsToMany(Book::class, 'cart_books')
-                    ->withPivot('quantity')
+                    ->withPivot('quantity', 'isChecked')
                     ->withTimestamps();
     }
 }

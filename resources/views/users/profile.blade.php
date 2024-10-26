@@ -24,28 +24,29 @@
             @endif
         </div>
 
-        <div class="col-lg-6 mb-3">
+        <div class="col-12 col-md-6 mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control" value="{{ $user->name }}">
         </div>
 
-        <div class="col-lg-6 mb-3">
+        <div class="col-12 col-md-6 mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="text" class="form-control" value="{{ $user->email }}" readonly>
         </div>
 
-        <div class="col-lg-6 mb-3">
+        <div class="col-12 col-md-6 mb-3">
             <label for="address" class="form-label">Address</label>
             <input type="text" class="form-control" value="{{ $user->address }}" readonly>
         </div>
 
-        <div class="col-lg-6 mb-3">
+        <div class="col-12 col-md-6 mb-3">
             <label for="phoneNumber" class="form-label">Phone Number</label>
             <input type="text" class="form-control" value="{{ $user->phoneNumber }}" readonly>
         </div>
 
-        <a class="btn btn-primary mt-4 text-decoration-none text-white" href="{{ route('users.edit', ['user' => $user->username]) }}">
+        <a class="btn btn-primary mt-4 text-decoration-none text-white"
+            href="{{ route('users.edit', ['user' => $user->username]) }}">
             Update Profile
-        </a>        
+        </a>
     </div>
 @endsection

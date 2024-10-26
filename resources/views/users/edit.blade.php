@@ -1,6 +1,30 @@
 @extends('layouts.main')
 
 @section('container')
+    <style>
+        .img-wrapper {
+            width: 250px;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+
+        .img-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Tablet */
+        @media screen and (max-width: 767px) {
+            .img-wrapper {
+                width: 180px;
+                height: 180px;
+            }
+        }
+    </style>
+
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
         <h1 class="h2">{{ $title }}</h1>
     </div>
@@ -10,13 +34,18 @@
         @method('put')
         @csrf
 
-        <div class="col-lg-5 d-flex flex-column align-items-center mb-3">
+        <div class="col-12 col-sm-8 col-md-8 col-lg-6 d-flex flex-column align-items-center mb-3">
+            <label class="fs-3 mb-2">Profile Picture</label>
             <input type="hidden" name="oldImage" value="{{ $user->image }}">
-            @if ($user->image)
-                <img src="{{ asset('storage/' . $user->image) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
-            @else
-                <img class="img-preview img-fluid mb-3 col-sm-5">
-            @endif
+            <div class="img-wrapper mb-3 col-5 col-sm-6 col-md-5">
+                @if ($user->image)
+                    <img src="{{ asset('storage/' . $user->image) }}" alt="{{ $user->name }}"
+                        class="img-preview img-fluid d-block">
+                @else
+                    <img src="{{ asset('img/male icon.png') }}" alt="{{ $user->name }}"
+                        class="img-preview img-fluid d-block">
+                @endif
+            </div>
             <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image"
                 onchange="previewImage()">
             @error('image')
@@ -24,7 +53,7 @@
             @enderror
         </div>
 
-        <div class="col-lg-5 mb-3">
+        <div class="col-12 col-sm-8 col-md-8 col-lg-6 mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
                 required autofocus value="{{ old('name', $user->name) }}">
@@ -42,7 +71,7 @@
             @enderror
         </div> --}}
 
-        <div class="col-lg-5 mb-3">
+        <div class="col-12 col-sm-8 col-md-8 col-lg-6 mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
                 required autofocus value="{{ old('email', $user->email) }}">
@@ -51,7 +80,7 @@
             @enderror
         </div>
 
-        <div class="col-lg-5 mb-3">
+        <div class="col-12 col-sm-8 col-md-8 col-lg-6 mb-3">
             <label for="address" class="form-label">Address</label>
             <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" name="address"
                 required autofocus value="{{ old('address', $user->address) }}">
@@ -60,7 +89,7 @@
             @enderror
         </div>
 
-        <div class="col-lg-5 mb-3">
+        <div class="col-12 col-sm-8 col-md-8 col-lg-6 mb-3">
             <label for="phoneNumber" class="form-label">Phone Number</label>
             <input type="text" class="form-control @error('phoneNumber') is-invalid @enderror" id="phoneNumber"
                 name="phoneNumber" required autofocus value="{{ old('phoneNumber', $user->phoneNumber) }}">

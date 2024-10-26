@@ -4,10 +4,12 @@ use App\Models\Book;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
-    UserController, LoginController, RegisterController, BookController, CategoryController, GenreController, CartController, DashboardBookController, AdminCategoryController, AdminGenreController
+    UserController, LoginController, RegisterController, BookController, CategoryController, GenreController, CartController, DashboardBookController, AdminCategoryController, AdminGenreController,
+    HomeController,
+    TransactionController
 };
 
-Route::view('/', 'home', ['title' => 'Home Page', 'books' => Book::all()]);
+Route::get('/', [HomeController::class, 'index']);
 Route::view('/about', 'about', ['title' => 'About Us']);
 
 Route::resources([
@@ -25,10 +27,18 @@ Route::middleware('guest')->group(function () {
 });
 Route::middleware('auth')->post('/logout', [LoginController::class, 'logout']);
 
-Route::middleware('auth')->group(function () {
-    Route::get('carts/checkout', [CartController::class, 'checkout'])->name('carts.checkout');
-    Route::resource('carts', CartController::class);
-    Route::post('carts/store/{book:slug}', [CartController::class, 'store'])->name('carts.store');
+Route::middleware('auth')->prefix('carts')->as('carts.')->group(function () {
+    Route::get('checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::resource('/', CartController::class)->parameters(['' => 'cart'])->except(['create', 'edit']);
+    Route::post('store/{book:slug}', [CartController::class, 'store'])->name('store');
+    Route::post('update-is-checked', [CartController::class, 'updateIsChecked'])->name('updateIsChecked');
+    Route::post('update-quantity', [CartController::class, 'updateQuantity'])->name('updateQuantity');
+});
+
+Route::middleware('auth')->prefix('transactions')->as('transactions.')->group(function () {
+    Route::get('/orderRequest', [TransactionController::class, 'orderRequest'])->name('orderRequest');
+    Route::post('updateStatus/{transaction}', [TransactionController::class, 'updateStatus'])->name('updateStatus');
+    Route::resource('/', TransactionController::class)->parameters(['' => 'transaction']);
 });
 
 Route::middleware('auth')->prefix('dashboard')->as('auth.')->group(function () {

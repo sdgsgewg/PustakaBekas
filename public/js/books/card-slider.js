@@ -2,6 +2,7 @@ document.querySelectorAll(".carousel").forEach((carousel) => {
     const slider = carousel.querySelector(".carousel-inner");
     const prev = carousel.querySelector(".carousel-control-prev");
     const next = carousel.querySelector(".carousel-control-next");
+    const bookAmount = carousel.getAttribute("data-book-amount");
 
     let scrollAmount = 0;
     let visibleCards = getVisibleCards();
@@ -26,10 +27,19 @@ document.querySelectorAll(".carousel").forEach((carousel) => {
             left: scrollAmount,
             behavior: "smooth",
         });
+
+        if (scrollAmount == 0) {
+            prev.style.display = "none";
+            if (bookAmount <= visibleCards) {
+                next.style.display = "none";
+            } else {
+                next.style.display = "block";
+            }
+        }
     });
 
     next.addEventListener("click", () => {
-        const maxScroll = slider.scrollWidth - slider.clientWidth;
+        const maxScroll = slider.scrollWidth - slider.clientWidth - 20;
         if (scrollAmount < maxScroll) {
             scrollAmount += cardWidth;
             if (scrollAmount > maxScroll) {
@@ -39,10 +49,14 @@ document.querySelectorAll(".carousel").forEach((carousel) => {
                 left: scrollAmount,
                 behavior: "smooth",
             });
+            prev.style.display = "block";
+        }
+
+        if (scrollAmount >= maxScroll) {
+            next.style.display = "none";
         }
     });
 
-    // Previous button functionality
     prev.addEventListener("click", () => {
         if (scrollAmount > 0) {
             scrollAmount -= cardWidth;
@@ -53,6 +67,20 @@ document.querySelectorAll(".carousel").forEach((carousel) => {
                 left: scrollAmount,
                 behavior: "smooth",
             });
+            next.style.display = "block";
+        }
+
+        if (scrollAmount == 0) {
+            prev.style.display = "none";
         }
     });
+
+    if (scrollAmount == 0) {
+        prev.style.display = "none";
+        console.log(bookAmount);
+        console.log(visibleCards);
+        if (bookAmount <= visibleCards) {
+            next.style.display = "none";
+        }
+    }
 });

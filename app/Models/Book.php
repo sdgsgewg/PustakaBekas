@@ -58,7 +58,14 @@ class Book extends Model
     public function carts()
     {
         return $this->belongsToMany(Cart::class, 'cart_books')
-        ->withPivot('quantity')
+        ->withPivot('quantity', 'isChecked')
+        ->withTimestamps();
+    }
+
+    public function transactions()
+    {
+        return $this->belongsToMany(Transaction::class, 'transaction_books')
+        ->withPivot('quantity', 'sub_total_price')
         ->withTimestamps();
     }
 

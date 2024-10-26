@@ -9,7 +9,7 @@
     </div>
 
     <div class="col-lg-8">
-        <form method="POST" action="{{ route('auth.books.index') }}" class="mb-5" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('auth.books.index') }}" class="mb-5" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
