@@ -19,6 +19,8 @@ Route::resources([
     'users' => UserController::class
 ]);
 
+Route::get('book/genres/{categorySlug}', [BookController::class, 'getGenresByCategory'])->name('bookFilter.getGenresByCategory');
+
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'authenticate']);

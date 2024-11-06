@@ -77,8 +77,6 @@ document.querySelectorAll(".carousel").forEach((carousel) => {
 
     if (scrollAmount == 0) {
         prev.style.display = "none";
-        console.log(bookAmount);
-        console.log(visibleCards);
         if (bookAmount <= visibleCards) {
             next.style.display = "none";
         }

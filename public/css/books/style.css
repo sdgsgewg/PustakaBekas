@@ -1,3 +1,24 @@
+/* Catgeory Header */
+
+.category-header {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.category-title {
+    font-weight: bold;
+}
+
+.view-all-link {
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+    padding: 5px 12px;
+}
+
+/* Carousel */
+
 .carousel-control-prev,
 .carousel-control-next {
     position: absolute;
@@ -42,11 +63,10 @@
     border-radius: 1px solid black;
 }
 
-.imgBigCard img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+.img-no-book {
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
 }
 
 /* .genre {
@@ -61,7 +81,7 @@
     overflow: hidden;
 }
 
-.img-wrapper img {
+img {
     width: 100%;
     height: 100%;
     object-fit: cover;
