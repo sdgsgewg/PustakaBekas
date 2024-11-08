@@ -58,7 +58,7 @@ class DashboardBookController extends Controller
             'genre_id.*' => 'exists:book_genres,id'
         ]);
 
-        // // Check if a new image file is uploaded
+        // Check if a new image file is uploaded
         if ($request->hasFile('image')) {
             $validatedData['image'] = $request->file('image')->store('book-images');
         }

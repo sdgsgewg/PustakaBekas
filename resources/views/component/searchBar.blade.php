@@ -7,7 +7,6 @@
             <input type="hidden" name="genre"
                 value="{{ is_array(request('genre')) ? implode(',', request('genre')) : request('genre') }}">
         @endif
-
         @if (request('seller'))
             <input type="hidden" name="seller" value="{{ request('seller') }}">
         @endif
