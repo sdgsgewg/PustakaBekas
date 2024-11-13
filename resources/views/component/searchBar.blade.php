@@ -1,19 +1,17 @@
-<div class="col-md-8">
-    <form action="/books">
-        @if (request('category'))
-            <input type="hidden" name="category" value="{{ request('category') }}">
-        @endif
-        @if (request('genre'))
-            <input type="hidden" name="genre"
-                value="{{ is_array(request('genre')) ? implode(',', request('genre')) : request('genre') }}">
-        @endif
-        @if (request('seller'))
-            <input type="hidden" name="seller" value="{{ request('seller') }}">
-        @endif
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search.." name="search"
-                value="{{ request('search') }}" autocomplete="off">
-            <button class="btn btn-primary" type="submit">Search</button>
-        </div>
-    </form>
-</div>
+<form action="/books">
+    @if (request('category'))
+        <input type="hidden" name="category" value="{{ request('category') }}">
+    @endif
+    @if (request('genre'))
+        <input type="hidden" name="genre"
+            value="{{ is_array(request('genre')) ? implode(',', request('genre')) : request('genre') }}">
+    @endif
+    @if (request('seller'))
+        <input type="hidden" name="seller" value="{{ request('seller') }}">
+    @endif
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search.." name="search" value="{{ request('search') }}"
+            autocomplete="off">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+</form>

@@ -10,10 +10,16 @@ class Cart extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    protected $with = ['user', 'books'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function books()
     {
-    return $this->belongsToMany(Book::class, 'cart_books')
+        return $this->belongsToMany(Book::class, 'cart_books')
                     ->withPivot('quantity', 'isChecked')
                     ->withTimestamps();
     }

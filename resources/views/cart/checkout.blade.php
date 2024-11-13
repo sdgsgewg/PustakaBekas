@@ -4,8 +4,8 @@
 
     <link rel="stylesheet" href="{{ asset('css/cart/style.css') }}?v={{ time() }}">
 
-    <div class="row justify-content-center">
-        <div class="col-md-10 d-flex flex-column">
+    <div class="row justify-content-center mt-4">
+        <div class="col-11 col-md-10 col-lg-8 d-flex flex-column">
             <h1>{{ $title }}</h1>
             <hr class="mb-4">
 

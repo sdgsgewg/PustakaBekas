@@ -1,4 +1,4 @@
-document.querySelectorAll(".carousel").forEach((carousel) => {
+function initializeCarousel(carousel) {
     const slider = carousel.querySelector(".carousel-inner");
     const prev = carousel.querySelector(".carousel-control-prev");
     const next = carousel.querySelector(".carousel-control-next");
@@ -6,27 +6,39 @@ document.querySelectorAll(".carousel").forEach((carousel) => {
 
     let scrollAmount = 0;
     let visibleCards = getVisibleCards();
-    const cardWidth = carousel.querySelector(".carousel-item").offsetWidth + 20;
+    let cardWidth = getCardWidth();
 
     function getVisibleCards() {
         const screenWidth = window.innerWidth;
-        if (screenWidth >= 1024) {
+
+        if (screenWidth >= 1200) {
+            // Extra Large (xl)
+            return 4;
+        } else if (screenWidth >= 992) {
+            // Large (lg)
             return 3;
-        } else if (screenWidth >= 600) {
+        } else if (screenWidth >= 768) {
+            // Medium (md)
+            return 2;
+        } else if (screenWidth >= 576) {
+            // Small (sm)
             return 2;
         } else {
+            // Extra Small (xs)
             return 1;
         }
     }
 
-    // Update visibleCards on window resize
-    window.addEventListener("resize", () => {
+    function getCardWidth() {
+        let item = carousel.querySelector(".carousel-item").offsetWidth + 20;
+        return item;
+    }
+
+    function updateCarousel() {
         visibleCards = getVisibleCards();
-        scrollAmount = 0; // Reset scroll amount
-        slider.scroll({
-            left: scrollAmount,
-            behavior: "smooth",
-        });
+        cardWidth = getCardWidth();
+        scrollAmount = 0;
+        slider.scroll({ left: scrollAmount, behavior: "smooth" });
 
         if (scrollAmount == 0) {
             prev.style.display = "none";
@@ -36,7 +48,9 @@ document.querySelectorAll(".carousel").forEach((carousel) => {
                 next.style.display = "block";
             }
         }
-    });
+    }
+
+    window.addEventListener("resize", updateCarousel);
 
     next.addEventListener("click", () => {
         const maxScroll = slider.scrollWidth - slider.clientWidth - 20;
@@ -81,4 +95,10 @@ document.querySelectorAll(".carousel").forEach((carousel) => {
             next.style.display = "none";
         }
     }
-});
+}
+
+// Initialize carousels on initial load
+document.querySelectorAll(".carousel").forEach(initializeCarousel);
+
+// Make the function globally accessible for seeMore.js
+window.initializeCarousel = initializeCarousel;

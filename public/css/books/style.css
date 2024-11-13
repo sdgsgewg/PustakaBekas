@@ -36,11 +36,11 @@
 }
 
 .carousel-control-prev {
-    left: -15px;
+    left: -25px;
 }
 
 .carousel-control-next {
-    right: -15px;
+    right: -25px;
 }
 
 .carousel-inner {
@@ -64,8 +64,8 @@
 }
 
 .img-no-book {
-    width: 250px;
-    height: 250px;
+    width: 350px;
+    height: auto;
     overflow: hidden;
 }
 
@@ -122,20 +122,43 @@ img {
     z-index: -1;
 }
 
-@media screen and (min-width: 1024px) {
+/* Extra Large Screens (>= 1200px) - Display 4 cards */
+@media screen and (min-width: 1200px) {
     .carousel-item {
-        flex: 0 0 calc((100% - (2 * 20px)) / 3);
+        flex: 0 0 calc((100% - (3 * 20px)) / 4); /* 4 cards with 20px gap */
     }
 }
 
-@media screen and (min-width: 600px) and (max-width: 1023px) {
+/* Large Screens (992px - 1199px) - Display 3 cards */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
     .carousel-item {
-        flex: 0 0 calc((100% - 20px) / 2);
+        flex: 0 0 calc((100% - (2 * 20px)) / 3); /* 3 cards with 20px gap */
     }
 }
 
-@media screen and (max-width: 599px) {
+/* Medium Screens (768px - 991px) - Display 2 cards */
+@media screen and (min-width: 768px) and (max-width: 991px) {
     .carousel-item {
-        flex: 1 0 100%;
+        flex: 0 0 calc((100% - 20px) / 2); /* 2 cards with 20px gap */
+    }
+}
+
+/* Small Screens (< 768px) - Display 1 card */
+@media screen and (min-width: 576px) and (max-width: 767px) {
+    .carousel-item {
+        flex: 0 0 calc((100% - 20px) / 2); /* 2 cards with 20px gap */
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .carousel-control-prev {
+        left: -20px;
+    }
+
+    .carousel-control-next {
+        right: -20px;
+    }
+    .carousel-item {
+        flex: 1 0 100%; /* Full-width, single card */
     }
 }

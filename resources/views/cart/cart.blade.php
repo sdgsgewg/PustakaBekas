@@ -4,13 +4,13 @@
 
     <link rel="stylesheet" href="{{ asset('css/cart/style.css') }}?v={{ time() }}">
 
-    <div class="row justify-content-center">
-        <div class="col-md-10 d-flex flex-column">
+    <div class="row justify-content-center mt-4">
+        <div class="col-11 col-md-10 col-lg-8 d-flex flex-column">
             <h1>{{ $title }}</h1>
             <hr class="mb-4">
 
             @if (session()->has('success'))
-                <div class="alert alert-success alert-dismissible fade show col-md-12" role="alert">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -39,8 +39,8 @@
                                         {{ $book->pivot->isChecked ? 'checked' : '' }}>
                                 </div>
                                 @include('component.cartItem')
-                                @include('component.modals.removeModal')
-                                @include('component.modals.maxQtyModal')
+                                @include('component.modals.cart.removeModal')
+                                @include('component.modals.cart.maxQtyModal')
                             </div>
                         @endforeach
                     </div>
@@ -50,7 +50,7 @@
                     data-checkout-url="{{ route('carts.checkout') }}">
                     Checkout
                 </a>
-                @include('component.modals.cartModal')
+                @include('component.modals.cart.checkoutNoticeModal')
             @else
                 <div class="d-flex flex-column align-items-center">
                     <div class="img-no-order">

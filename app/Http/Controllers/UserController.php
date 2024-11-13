@@ -64,10 +64,11 @@ class UserController extends Controller
     {
         $rules = [
             'image' => 'image|file|max:1024',
-            'name' => 'required|max:255',
-            'email' => 'required',
-            'address' => 'required',
-            'phoneNumber' => 'required'
+            'name' => 'required|max:255|regex:/^[^0-9]*$/',
+            'username' => 'required|max:255|regex:/^[a-z0-9]+$/|unique:users',
+            'email' => 'required|email:dns|max:255|unique:users',
+            'address' => 'required|string|max:500',
+            'phoneNumber' => 'required|numeric|digits_between:10,15',
         ];
 
         // if( $request->slug != $design->slug )

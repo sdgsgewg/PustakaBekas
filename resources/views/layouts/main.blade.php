@@ -19,8 +19,7 @@
     @include('partials.navbar')
 
     <main>
-        <div class="{{ Request::is('/') ? 'container-fluid' : 'container' }} {{ Request::is('/') ? '' : 'mt-4' }}"
-            style="min-height: 100vh;">
+        <div class="content container-fluid px-0">
             @yield('container')
         </div>
     </main>
