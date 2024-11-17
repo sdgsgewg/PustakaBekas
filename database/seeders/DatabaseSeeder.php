@@ -15,37 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
-        User::create([
-            'name' => 'Jessen',
-            'username' => 'jessen',
-            'email' => 'jessen123ptk@gmail.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'),
-            'address' => 'Orange Street',
-            'phoneNumber' => '08123456789',
-            'is_admin' => 1,
-            'remember_token' => Str::random(10)
-        ]);
-
-        // User::create([
-        //     'name' => 'Asep',
-        //     'email' => 'asep123ptk@gmail.com',
-        //     'password' => bcrypt('asep123')
-        // ]);
-
-        User::factory(3)->create();
-
         $this->call([
+            UserSeeder::class,
             CategorySeeder::class,
-            GenreSeeder::class
+            GenreSeeder::class,
+            BookSeeder::class
         ]);
-
-        Book::factory(15)->withGenres(1)->create();
-        
     }
 }

@@ -1,11 +1,9 @@
 $(document).ready(function () {
-    // Check if a category is already selected and load genres for that category
-
-    console.log("Old Category Slug:", oldCategorySlug); // Debugging: Check old category value
-    console.log("Old Genre Slugs:", oldGenreSlugs); //
+    console.log("Old Category Slug: ", oldCategorySlug);
+    console.log("Old Genre Slugs: ", oldGenreSlugs);
 
     if (oldCategorySlug) {
-        $("#category").val(oldCategorySlug); // Ensure the selected category is set
+        $("#category").val(oldCategorySlug);
         loadGenresByCategory(oldCategorySlug);
     }
 
@@ -26,6 +24,7 @@ $(document).ready(function () {
                 success: function (data) {
                     console.log("Data received from AJAX:", data);
                     $("#genre").empty(); // Clear existing genres
+
                     if (data.length > 0) {
                         $.each(data, function (key, value) {
                             // Check if the genre slug is in the old selected slugs
@@ -72,5 +71,4 @@ $(document).ready(function () {
         var categorySlug = $(this).val();
         loadGenresByCategory(categorySlug); // Reload genres when category changes
     });
-
 });

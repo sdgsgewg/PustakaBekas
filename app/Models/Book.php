@@ -52,7 +52,7 @@ class Book extends Model
     
     public function seller() 
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'seller_id');
     }
 
     public function carts()
@@ -67,6 +67,20 @@ class Book extends Model
         return $this->belongsToMany(Transaction::class, 'transaction_books')
         ->withPivot('quantity', 'sub_total_price')
         ->withTimestamps();
+    }
+
+    public function trades()
+    {
+        return $this->belongsToMany(Trade::class, 'trade_books');
+    }
+
+    public function scopeBooksWithinPriceRange($query, $sellerId, $targetPrice, $percentage = 0.1)
+    {
+        $lowerBound = $targetPrice * (1 - $percentage);
+        $upperBound = $targetPrice * (1 + $percentage);
+
+        return $query->where('seller_id', $sellerId)
+                    ->whereBetween('price', [$lowerBound, $upperBound]);
     }
 
     public function getRouteKeyName(): string

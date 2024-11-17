@@ -45,7 +45,7 @@ function initializeCarousel(carousel) {
             if (bookAmount <= visibleCards) {
                 next.style.display = "none";
             } else {
-                next.style.display = "block";
+                next.style.display = "flex";
             }
         }
     }
@@ -63,7 +63,7 @@ function initializeCarousel(carousel) {
                 left: scrollAmount,
                 behavior: "smooth",
             });
-            prev.style.display = "block";
+            prev.style.display = "flex";
         }
 
         if (scrollAmount >= maxScroll) {
@@ -81,7 +81,7 @@ function initializeCarousel(carousel) {
                 left: scrollAmount,
                 behavior: "smooth",
             });
-            next.style.display = "block";
+            next.style.display = "flex";
         }
 
         if (scrollAmount == 0) {

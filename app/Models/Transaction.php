@@ -9,7 +9,9 @@ class Transaction extends Model
 {
     use HasFactory;
 
+    protected $table = 'transactions';
     protected $guarded = ['id'];
+    protected $with = ['buyer' , 'seller'];
 
     const STATUSES = [
         'Not Paid',

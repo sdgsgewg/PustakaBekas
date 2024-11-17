@@ -170,7 +170,6 @@ class CartController extends Controller
     
         if ($cart) {
             $cart->books()->updateExistingPivot($bookId, ['quantity' => $validatedData['quantity']]);
-    
             return redirect()->back();
         }
     }

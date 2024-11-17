@@ -26,7 +26,7 @@
     </style>
 
     <div class="row justify-content-center">
-        <div class="col-11 d-flex justify-content-between pb-2 my-4 border-bottom">
+        <div class="col-11 col-md-8 col-lg-7 d-flex justify-content-between pb-2 my-4 border-bottom">
             <h1 class="h2">{{ $title }}</h1>
         </div>
     </div>

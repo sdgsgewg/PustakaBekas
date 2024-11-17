@@ -7,13 +7,13 @@
     </div>
 
     @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show col-lg-12" role="alert">
+        <div class="alert alert-success alert-dismissible fade show col-12 col-lg-10" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
-    <div class="table-responsive small col-lg-12">
+    <div class="table-responsive small col-12 col-lg-10">
         <a href="{{ route('auth.books.create') }}" class="btn btn-primary mb-3">Create New Book</a>
 
         @if ($books->count())
@@ -24,9 +24,6 @@
                         <th scope="col">Title</th>
                         <th scope="col">Category</th>
                         <th scope="col">Genre</th>
-                        <th scope="col">Author</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Stock</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -41,11 +38,7 @@
                                     <span class="badge text-bg-secondary">{{ $genre->name }}</span>
                                 @endforeach
                             </td>
-                            <td>{{ $book->author }}</td>
-                            <td>{{ number_format($book->price, 0, ',', '.') }}</td>
-                            <td>{{ $book->stock }}</td>
                             <td>
-
                                 <a href="{{ route('auth.books.show', ['book' => $book->slug]) }}" class="badge bg-info">
                                     <i class="bi bi-eye icon"></i>
                                 </a>

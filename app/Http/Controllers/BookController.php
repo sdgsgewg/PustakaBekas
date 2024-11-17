@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\User;
 use App\Models\Genre;
 use Illuminate\Support\Facades\Auth;
@@ -82,7 +83,7 @@ class BookController extends Controller
             $seller = User::firstWhere('username', request('seller'));
             if ($seller) {
                 $title .= ' by ' . $seller->name;
-                $query->where('user_id', $seller->id);
+                $query->where('seller_id', $seller->id);
             }
         }
 
@@ -103,9 +104,32 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
+        $targetBookPrice = $book->price;
+        
+        // Use the new scope method to get books in the price range
+        $books = Book::booksWithinPriceRange(Auth::user()->id, $targetBookPrice)->get();
+        
+        $comments = Comment::where('book_id', $book->id)->get();
+
         return view('books.book', [
             'title' => 'Single Book',
-            'book' => $book
+            'book' => $book,
+            'books' => $books,
+            'targetBookPrice' => $targetBookPrice,
+            'comments' => $comments
         ]);
     }
+
+    public function seller(User $seller)
+    {
+        $title = 'Seller Page';
+        $books = $seller->books()->paginate(12);
+
+        return view('books.seller', [
+            'title' => $title,
+            'seller' => $seller,
+            'books' => $books
+        ]);
+    }
+
 }

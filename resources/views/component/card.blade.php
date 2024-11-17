@@ -1,5 +1,5 @@
-<div class="card d-flex flex-column">
-    <div class="img-wrapper">
+<div class="card d-flex flex-column h-100">
+    <div class="img-wrapper h-50">
         @if ($book->image)
             <img src="{{ asset('storage/' . $book->image) }}" alt="{{ $book->category->name }}">
         @else
@@ -7,30 +7,19 @@
         @endif
     </div>
 
-    <div class="card-body">
-        <div>
+    <div class="card-body d-flex flex-column h-50">
+        <div class="mb-3">
             <h5 class="card-title">{{ $book->title }}</h5>
-            <p>
-                <small class="text-body-secondary">
-                    By. <a href="{{ route('books.index', ['seller' => $book->seller->username]) }}"
-                        class="text-decoration-none">
-                        {{ $book->seller->name }}</a>
-                </small>
-            </p>
+            <small class="text-body-secondary">
+                <a href="{{ route('books.seller', ['seller' => $book->seller->username]) }}" class="text-decoration-none">
+                    {{ $book->seller->name }}</a>
+                |
+            </small>
+            <small class="text-warning">{{ $book->rating }}</small>
         </div>
-        <div class="d-flex justify-content-between">
-            <a href="{{ route('books.show', ['book' => $book->slug]) }}" class="btn btn-primary">View
-                details</a>
-
-            @if (auth()->check() && auth()->user()->id !== $book->seller->id)
-                <form action="{{ route('carts.store', ['book' => $book->slug]) }}" method="POST" class="d-inline">
-                    @csrf
-                    <button type={{ $book->stock > 0 ? 'submit' : 'button' }}
-                        class="btn {{ $book->stock > 0 ? 'btn-primary' : 'btn-secondary' }} d-flex">
-                        <i class="bi bi-cart-plus"></i>
-                    </button>
-                </form>
-            @endif
+        <div class="d-flex flex-row align-items-center justify-content-between mt-auto">
+            <p class="my-auto"> Rp{{ number_format($book->price, 0, ',', '.') }}</p>
+            <a href="{{ route('books.show', ['book' => $book->slug]) }}" class="btn btn-primary">Details</a>
         </div>
     </div>
 

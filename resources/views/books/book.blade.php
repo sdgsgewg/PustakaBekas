@@ -1,26 +1,37 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="container">
-        <div class="row justify-content-center mb-5">
-            <div class="col-md-8">
-                <h1 class="mb-3">{{ $book['title'] }}</h1>
+    <div class="row justify-content-center mt-4 mb-5">
+        <div class="col-md-8">
+            @include('component.modals.book.tradeStatusModal')
+
+            {{-- <a href="{{ route('books.index') }}" class="col-1 d-inline-flex btn btn-primary"><i
+                    class="bi bi-arrow-left me-2"></i> Back</a> --}}
+
+            <h1 class="mt-2 mb-3">{{ $book['title'] }}</h1>
+            <div class="d-flex flex-row gap-2">
                 <p>
                     By.
-                    <a href="{{ route('books.index', ['seller' => $book->seller->username]) }}"
-                        class="text-decoration-none">{{ $book->seller->name }}</a>
+                    <a href="{{ route('books.seller', ['seller' => $book->seller->username]) }}" class="text-decoration-none">
+                        {{ $book->seller->name }}</a>
                 </p>
+                <p>|</p>
+                <p class="text-warning">
+                    {{ $book->rating }}
+                </p>
+            </div>
 
-                @if ($book->image)
-                    <div style="max-height: 350px; overflow:hidden">
-                        <img src="{{ asset('storage/' . $book->image) }}" alt="{{ $book->category->name }}" class="img-fluid">
-                    </div>
-                @else
-                    <img src="{{ asset('img/' . $book->category->name . '.jpg') }}" alt="{{ $book->category->name }}"
-                        width="1200" height="400" class="img-fluid">
-                @endif
-
-                <article class="my-3 fs-5">
+            <div class="d-flex flex-row" style="max-height: 350px;">
+                <div class="col-4 overflow-hidden">
+                    @if ($book->image)
+                        <img src="{{ asset('storage/' . $book->image) }}" alt="{{ $book->category->name }}"
+                            class="img-fluid">
+                    @else
+                        <img src="{{ asset('img/' . $book->category->name . '.jpg') }}" alt="{{ $book->category->name }}"
+                            class="img-fluid">
+                    @endif
+                </div>
+                <div class="col-7 d-flex flex-column ms-5">
                     <p>Category:
                         <a href="{{ route('books.index', ['category' => $book->category->slug]) }}"
                             class="text-decoration-none">{{ $book->category->name }}</a>
@@ -34,17 +45,47 @@
                                 class="text-decoration-none">{{ $genre->name }}</a>
                         @endforeach
                     </p>
-                    <p>Author: {{ $book->author }}</p>
-                    <p>Stock: {{ $book->stock }}</p>
-                    <p>Price: Rp{{ number_format($book->price, 2, ',', '.') }}</p>
-                    <hr>
-                    <h2>Synopsis</h2>
-                    <p>{!! $book->synopsis !!}</p>
-                    <hr>
-                </article>
 
-                <a href="{{ route('books.index') }}" class="d-block mt-3">&laquo; Back to all books</a>
+                    <div class="d-flex flex-row gap-3 mt-auto">
+                        @if (auth()->check() && auth()->user()->id !== $book->seller->id)
+                            <form action="{{ route('carts.store', ['book' => $book->slug]) }}" method="POST"
+                                class="d-inline">
+                                @csrf
+                                <button type={{ $book->stock > 0 ? 'submit' : 'button' }}
+                                    class="btn {{ $book->stock > 0 ? 'btn-success' : 'btn-secondary' }} d-inline-flex">
+                                    <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                                </button>
+                            </form>
+
+                            <button type="button" class="btn btn-primary d-inline-flex" data-bs-toggle="modal"
+                                data-bs-target="#proposeTradeModal">
+                                <i class="bi bi-arrow-left-right me-2"></i>Trade
+                            </button>
+                            @include('component.modals.trade.proposeTradeModal')
+                        @endif
+                    </div>
+                </div>
             </div>
+
+            <article class="mt-4 fs-6">
+                <hr>
+                <h2 class="mb-3">Description</h2>
+                <p>Author: {{ $book->author }}</p>
+                <p>Stock: {{ $book->stock }}</p>
+                <p>Price: Rp{{ number_format($book->price, 2, ',', '.') }}</p>
+            </article>
+
+            <article class="mt-3 fs-6">
+                <hr>
+                <h2>Synopsis</h2>
+                <p>{!! $book->synopsis !!}</p>
+                <hr>
+            </article>
+
+            @include('component.books.comments.book-comment-section')
         </div>
     </div>
+
+    <script src="{{ asset('js/books/comment.js') }}?v={{ time() }}"></script>
+    <script src="{{ asset('js/books/reply.js') }}?v={{ time() }}"></script>
 @endsection

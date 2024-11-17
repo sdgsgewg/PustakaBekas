@@ -33,13 +33,13 @@
 
     <div class="row justify-content-center mt-5">
         <div class="col-11">
-            @if ($books->count())
+            @if ($trendingBooks->count())
                 <div class="title mb-4">
                     <h2>Trending</h2>
                     <hr>
                 </div>
                 <div class="row d-flex flex-wrap">
-                    @foreach ($books->take(6) as $book)
+                    @foreach ($trendingBooks as $book)
                         <div class="col-12 col-md-6 col-lg-4 mb-4">
                             @include('component.card')
                         </div>
@@ -54,13 +54,13 @@
 
     <div class="row justify-content-center mt-5">
         <div class="col-11">
-            @if ($books->count())
+            @if ($latestBooks->count())
                 <div class="title mb-4">
                     <h2>Recently Uploaded Books</h2>
                     <hr>
                 </div>
                 <div class="row d-flex flex-wrap">
-                    @foreach ($books->take(3) as $book)
+                    @foreach ($latestBooks as $book)
                         <div class="col-12 col-sm-6 col-lg-4 mb-4">
                             @include('component.card')
                         </div>

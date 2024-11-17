@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('category_id');
+            $table->foreignId('seller_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->string('title')->index();
             $table->string('slug')->unique();
             $table->text('image')->nullable();
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('synopsis');
             $table->integer('price');
             $table->integer('stock');
+            $table->float('rating')->default(0.00)->nullable();
             $table->timestamps();
         });
     }

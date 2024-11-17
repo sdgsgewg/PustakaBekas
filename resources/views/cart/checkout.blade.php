@@ -6,7 +6,11 @@
 
     <div class="row justify-content-center mt-4">
         <div class="col-11 col-md-10 col-lg-8 d-flex flex-column">
-            <h1>{{ $title }}</h1>
+            <div class="d-flex flex-row align-items-center">
+                <a href="{{ route('carts.index') }}" class="btn btn-primary me-3"><i
+                        class="bi bi-arrow-left"></i></a>
+                <h1>{{ $title }}</h1>
+            </div>
             <hr class="mb-4">
 
             @if (session()->has('success'))

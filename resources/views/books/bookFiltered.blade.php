@@ -29,7 +29,7 @@
                                     </div>
 
                                     <!-- Carousel for Books in Each Genre -->
-                                    <div id="carouselExample{{ $category->id }}{{ $genre->id }}" class="carousel mb-4"
+                                    <div id="carouselExample{{ $category->id }}{{ $genre->id }}" class="carousel mb-5"
                                         data-book-amount="{{ $booksInGenre->count() }}">
 
                                         <div class="carousel-inner">

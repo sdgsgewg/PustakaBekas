@@ -42,12 +42,12 @@
 
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('books*') ? 'active' : '' }}"
-                                href="{{ route('books.index') }}">Book</a>
+                                href="{{ route('books.index') }}">Books</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('categories*') ? 'active' : '' }}"
-                                href="{{ route('categories.index') }}">Category</a>
+                                href="{{ route('categories.index') }}">Categories</a>
                         </li>
 
                         <li class="nav-item">
@@ -61,16 +61,14 @@
 
                         @auth
                             <li class="nav-item dropdown">
+                                @php
+                                    $name = Str::words(auth()->user()->name, 1, '');
+                                @endphp
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
-                                    Welcome back, {{ auth()->user()->name }}
+                                    Welcome back, {{ $name }}
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li>
-                                        <a class="dropdown-item d-flex" href="{{ route('auth.dashboard') }}">
-                                            <i class="bi bi-layout-text-sidebar-reverse me-2"></i> My Dashboard
-                                        </a>
-                                    </li>
                                     <li>
                                         <a class="dropdown-item d-flex {{ request()->routeIs('transactions.index') || request()->routeIs('transactions.show') ? 'active' : '' }}"
                                             href="{{ route('transactions.index') }}">
@@ -81,6 +79,29 @@
                                         <a class="dropdown-item d-flex {{ request()->routeIs('transactions.orderRequest') ? 'active' : '' }}"
                                             href="{{ route('transactions.orderRequest') }}">
                                             <i class="bi bi-inbox me-2"></i> Order Requests
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex {{ request()->routeIs('trades.index') || request()->routeIs('trades.show') ? 'active' : '' }}"
+                                            href="{{ route('trades.index') }}">
+                                            <i class="bi bi-arrow-left-right me-2"></i> My Trades
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex {{ request()->routeIs('trades.tradeRequest') ? 'active' : '' }}"
+                                            href="{{ route('trades.tradeRequest') }}">
+                                            <i class="bi bi-inbox me-2"></i> Trade Requests
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex" href="{{ route('auth.dashboard') }}">
+                                            <i class="bi bi-layout-text-sidebar-reverse me-2"></i> My Dashboard
                                         </a>
                                     </li>
                                     <li>

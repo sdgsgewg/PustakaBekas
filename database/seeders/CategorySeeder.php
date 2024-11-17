@@ -21,5 +21,17 @@ class CategorySeeder extends Seeder
             'name' => 'Non-Fiction',
             'slug' => 'non-fiction'
         ]);
+        Category::create([
+            'name' => 'Education',
+            'slug' => 'education'
+        ]);
+        Category::create([
+            'name' => 'Religion',
+            'slug' => 'religion'
+        ]);
+        Category::create([
+            'name' => 'Comic',
+            'slug' => 'comic'
+        ]);
     }
 }

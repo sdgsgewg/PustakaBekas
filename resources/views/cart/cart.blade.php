@@ -46,7 +46,7 @@
                     </div>
                     <hr>
                 @endforeach
-                <a id="checkout-button" class="btn rounded-pill py-2 mt-3 text-decoration-none text-light"
+                <a id="checkout-button" class="btn btn-primary rounded-pill py-2 mt-3 text-decoration-none text-light"
                     data-checkout-url="{{ route('carts.checkout') }}">
                     Checkout
                 </a>

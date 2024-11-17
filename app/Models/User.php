@@ -44,7 +44,12 @@ class User extends Authenticatable
     
     public function books()
     {
-        return $this->hasMany(Book::class);
+        return $this->hasMany(Book::class, 'seller_id');
+    }
+
+    public function taggedReplies()
+    {
+        return $this->hasManyThrough(Reply::class, ReplyUserTag::class);
     }
 
     public function carts()
@@ -55,6 +60,16 @@ class User extends Authenticatable
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function tradesAsUser1()
+    {
+        return $this->hasMany(Trade::class, 'user_1_id');
+    }
+
+    public function tradesAsUser2()
+    {
+        return $this->hasMany(Trade::class, 'user_2_id');
     }
 
     public function getRouteKeyName()

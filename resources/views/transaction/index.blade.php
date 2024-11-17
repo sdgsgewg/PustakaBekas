@@ -30,7 +30,7 @@
             <div class="content-section mt-2" id="haveOrder">
                 @foreach ($transactions as $transaction)
                     <div class="transaction-card" data-status="{{ $transaction->transaction_status }}">
-                        @include('component.transactionItem', ['transaction' => $transaction])
+                        @include('component.transaction.orderCard', ['transaction' => $transaction])
                     </div>
                 @endforeach
             </div>

@@ -5,6 +5,9 @@ namespace Database\Factories;
 use App\Models\Book;
 use App\Models\Genre;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User as UserModel;
+use App\Models\Category as CategoryModel;
+use Faker\Factory as Faker;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Book>
@@ -20,15 +23,23 @@ class BookFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = Faker::create('id_ID');
+
+        $users = UserModel::all();
+        $categories = CategoryModel::all();
+
         return [
-            'user_id' => mt_rand(1, 4),
-            'category_id' => mt_rand(1, 2),
-            'title' => fake()->sentence(mt_rand(2, 5)),
-            'slug' => fake()->slug(),
-            'author' => fake()->name(),
-            'synopsis' => fake()->paragraph(mt_rand(2, 4)),
+            'seller_id' => $users->random()->id,
+            'category_id' => $categories->random()->id,
+            'title' => $faker->sentence(mt_rand(2, 5)),
+            'slug' => $faker->slug(),
+            'author' => $faker->name(),
+            'synopsis' => collect(range(1, 2))
+                        ->map(fn() => "<p>" . $faker->text(700) . "</p>")
+                        ->implode(''),
             'price' => mt_rand(50000, 200000),
-            'stock' => mt_rand(1, 20)
+            'stock' => mt_rand(1, 20),
+            'rating' => $faker->randomFloat(2, 3, 5)
         ];
     }
 

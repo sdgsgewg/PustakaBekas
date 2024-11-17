@@ -19,7 +19,7 @@ class DashboardBookController extends Controller
     public function index()
     {
         return view('dashboard.books.index', [
-            'books' => Book::where('user_id', Auth::user()->id)->get()
+            'books' => Book::where('seller_id', Auth::user()->id)->get()
         ]);
     }
 
@@ -64,7 +64,7 @@ class DashboardBookController extends Controller
         }
 
         /** @var \App\Models\User $user */
-        $validatedData['user_id'] = Auth::user()->id;
+        $validatedData['seller_id'] = Auth::user()->id;
 
         // Create the book entry
         $book = Book::create($validatedData);
@@ -127,7 +127,7 @@ class DashboardBookController extends Controller
             $validatedData['image'] = $request->file('image')->store('book-images');
         }
 
-        $validatedData['user_id'] = Auth::user()->id;
+        $validatedData['seller_id'] = Auth::user()->id;
 
         $book->update($validatedData);
         $book->genres()->sync($validatedData['genre_id']);

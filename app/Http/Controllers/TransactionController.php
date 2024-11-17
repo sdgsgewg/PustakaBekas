@@ -48,7 +48,6 @@ class TransactionController extends Controller
     {
         $transactions = Transaction::with('buyer', 'books')
             ->where('seller_id', Auth::id())
-            ->latest()
             ->get()
             ->map(function ($transaction) {
                 $transaction->nextStatuses = $transaction->getNextStatuses();
@@ -63,7 +62,6 @@ class TransactionController extends Controller
             'allStatus' => $allStatus
         ]);
     }
-
 
     /**
      * Show the form for creating a new resource.

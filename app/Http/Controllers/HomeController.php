@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index(){
+        $trendingBooks = Book::orderBy('rating', 'desc')->take(6)->get();
+        $latestBooks = Book::latest()->take(3)->get();
+
         return view('home', [
             'title' => 'Home Page', 
-            'books' => Book::latest()->get()
+            'trendingBooks' => $trendingBooks,
+            'latestBooks' => $latestBooks
         ]);
     }
 }

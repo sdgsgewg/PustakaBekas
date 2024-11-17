@@ -43,7 +43,15 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $title = 'Seller Page';
+        $seller = $user;
+        $books = $seller->books()->paginate(12);
+
+        return view('users.index', [
+            'title' => $title,
+            'seller' => $seller,
+            'books' => $books
+        ]);
     }
 
     /**

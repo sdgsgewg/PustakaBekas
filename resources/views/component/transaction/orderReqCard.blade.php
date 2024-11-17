@@ -1,4 +1,4 @@
-<div class="card col-12 rounded p-3 mb-4 d-flex flex-column" data-status="{{ $transaction->transaction_status }}">
+<div class="card col-12 rounded p-3 mb-4 d-flex flex-column">
 
     <div class="col-12 mb-2 d-flex justify-content-between">
         <h6 class="fw-bold">

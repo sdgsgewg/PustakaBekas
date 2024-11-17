@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('cart_books', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cart_id')->constrained()->onDelete('cascade');
-            $table->foreignId('book_id')->constrained()->onDelete('cascade');
+            $table->foreignId('cart_id')->constrained('carts')->onDelete('cascade');
+            $table->foreignId('book_id')->constrained('books')->onDelete('cascade');
             $table->integer('quantity')->default(1);
             $table->boolean('isChecked')->default(false);
             $table->timestamps();
