@@ -19,7 +19,7 @@
             'Accepted' => $trade->trade_status === 'Pending' ? 'Accept' : 'Process Order',
             'Declined' => 'Decline',
             'In Progress' => 'Confirm Delivery',
-            'Completed' => 'Confirm Receipt',
+            'Completed' => 'Finalize',
             'Cancelled' => 'Cancel',
         ];
     @endphp
@@ -27,8 +27,9 @@
     <div class="col-12 mt-2 d-flex flex-row justify-content-end gap-3">
 
         @if (in_array($trade->trade_status, ['Declined', 'Completed', 'Cancelled']))
-            <button class="btn btn-primary">View Detail
-            </button>
+            <a href="{{ route('trades.show', ['trade' => $trade]) }}" class="btn btn-primary">View
+                Detail
+            </a>
         @elseif ($trade->trade_status === 'In Progress')
             @if ($trade->isReceived)
                 @foreach ($trade->nextStatuses as $status)
@@ -44,8 +45,9 @@
                     @endif
                 @endforeach
             @else
-                <button class="btn btn-primary">View Detail
-                </button>
+                <a href="{{ route('trades.show', ['trade' => $trade]) }}" class="btn btn-primary">View
+                    Detail
+                </a>
             @endif
         @else
             @foreach ($trade->nextStatuses as $status)

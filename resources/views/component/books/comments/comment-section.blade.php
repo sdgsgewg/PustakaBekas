@@ -11,12 +11,12 @@
             @endif
         </div>
         <div class="col-11 d-flex flex-column ms-2">
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center m-0">
                 <a href="{{ route('books.seller', ['seller' => $comment->user->username]) }}"
-                    class="text-decoration-none m-0 me-1">
+                    class="text-decoration-none color-inherit m-0 me-2">
                     <small class="m-0">{{ '@' . $comment->user->username }}</small>
                 </a>
-                <small>{{ $comment->user->created_at->diffForHumans() }}</small>
+                <small class="m-0">{{ $comment->created_at->diffForHumans() }}</small>
             </div>
             <div>
                 <p class="m-0">
@@ -49,8 +49,8 @@
                 <div class="replyForm col-12" style="display: none;" data-id={{ $comment->id }}>
                     <div class="col-12 mb-3">
                         <input type="hidden" name="comment_id" value="{{ $comment->id }}">
-                        <textarea name="reply" class="reply form-control" data-id={{ $comment->id }}
-                            placeholder="Write your reply here" rows="2" required oninput="handleReplyBtn({{ $comment->id }})"></textarea>
+                        <textarea name="reply" class="reply form-control" data-id={{ $comment->id }} placeholder="Write your reply here"
+                            rows="2" required oninput="handleReplyBtn({{ $comment->id }})"></textarea>
                     </div>
                     <div class="col-12 justify-content-end gap-3">
                         <button class="cancel btn btn-secondary" data-id={{ $comment->id }} type="button"

@@ -32,7 +32,7 @@ class UserFactory extends Factory
         return [
             'name' => $name,
             'username' => $username,
-            'email' => $faker->unique()->safeEmail(),
+            'email' => fake()->unique()->userName() . '@gmail.com',
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'gender' => $faker->randomElement(['Male', 'Female']),

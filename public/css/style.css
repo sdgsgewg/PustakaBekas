@@ -22,9 +22,9 @@ img {
     object-position: center;
 }
 
-/* a {
+.color-inherit {
     color: inherit;
-} */
+}
 
 .form-signin .form-floating:focus-within {
     z-index: 2;

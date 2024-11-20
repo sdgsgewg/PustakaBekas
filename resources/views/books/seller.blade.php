@@ -8,14 +8,12 @@
                     <div class="align-items-start img-thumbnail rounded-circle overflow-hidden"
                         style="width: 100px; height: 100px;">
                         @if ($seller->image)
-                            <img src="{{ asset('storage/' . $seller->image) }}" alt="{{ $seller->name }}"
-                                style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="{{ asset('storage/' . $seller->image) }}" alt="{{ $seller->name }}" class="rounded-circle">
                         @else
-                            <img src="{{ asset('img/male icon.png') }}" alt="{{ $seller->name }}"
-                                style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="{{ asset('img/' . $seller->gender . ' icon.png') }}" alt="{{ $seller->name }}" class="rounded-circle">
                         @endif
                     </div>
-                    <div class="ms-3">
+                    <div class="d-flex flex-column ms-3">
                         <h4>{{ $seller->name }}</h4>
                     </div>
                 </div>
@@ -26,9 +24,13 @@
                     <div class="d-inline-flex">
                         <i class="bi bi-calendar me-2"></i> Date Joined: {{ date_format($seller->created_at, 'j F Y') }}
                     </div>
-                    {{-- <div class="d-inline-flex">
-                        <i class="bi bi-star me-2"></i> Rating
-                    </div> --}}
+                    @if ($averageRating > 0.0)
+                        <div class="d-inline-flex">
+                            <i class="bi bi-star me-2"></i> Rating: <span
+                                class="text-warning ms-1">{{ $averageRating }}</span>
+                        </div>
+                    @endif
+
                 </div>
             </div>
         </div>

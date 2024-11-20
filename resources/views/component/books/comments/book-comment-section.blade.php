@@ -1,5 +1,6 @@
-<div class="mt-3">
-    <h2 class="mb-3">Comments</h2>
+<div class="mt-0">
+    <hr>
+    <h2 class="mb-3">Discussions</h2>
 
     <!-- Comment Form -->
     <form action="{{ route('comments.store') }}" method="POST">

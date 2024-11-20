@@ -3,17 +3,8 @@
 @section('container')
     <style>
         .img-wrapper {
-            width: 250px;
-            height: 250px;
-            overflow: hidden;
-            border-radius: 50%;
-        }
-
-        .img-preview {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
+            width: 240px;
+            height: 240px;
         }
 
         /* Tablet */
@@ -40,15 +31,15 @@
             <div class="col-12 d-flex flex-column align-items-center justify-content-center">
 
                 <div class="col-11 col-sm-8 col-md-8 col-lg-6 d-flex flex-column align-items-center mb-3">
-                    <label class="fs-3 mb-2">Profile Picture</label>
+                    <label for="image" class="form-label fs-3 mb-2">Profile Picture</label>
                     <input type="hidden" name="oldImage" value="{{ $user->image }}">
-                    <div class="img-wrapper mb-3 col-5 col-sm-6 col-md-5">
+                    <div class="img-wrapper img-thumbnail rounded-circle overflow-hidden mb-3 col-5 col-sm-6 col-md-5">
                         @if ($user->image)
                             <img src="{{ asset('storage/' . $user->image) }}" alt="{{ $user->name }}"
-                                class="img-preview img-fluid d-block">
+                                class="img-preview rounded-circle">
                         @else
-                            <img src="{{ asset('img/male icon.png') }}" alt="{{ $user->name }}"
-                                class="img-preview img-fluid d-block">
+                            <img src="{{ asset('img/' . $user->gender . ' icon.png') }}" alt="{{ $user->name }}"
+                                class="img-preview rounded-circle">
                         @endif
                     </div>
                     <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
@@ -112,5 +103,5 @@
         </form>
     </div>
 
-    <script src="{{ asset('js/users/script.js') }}"></script>
+    <script src="{{ asset('js/users/script.js') }}?v={{ time() }}"></script>
 @endsection

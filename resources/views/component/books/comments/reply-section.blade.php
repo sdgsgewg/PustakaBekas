@@ -28,10 +28,10 @@
                     <div class="col-11 d-flex flex-column ms-2">
                         <div class="d-flex align-items-center">
                             <a href="{{ route('books.seller', ['seller' => $reply->user->username]) }}"
-                                class="text-decoration-none m-0 me-1">
+                                class="text-decoration-none color-inherit m-0 me-2">
                                 <small class="m-0">{{ '@' . $reply->user->username }}</small>
                             </a>
-                            <small>{{ $reply->user->created_at->diffForHumans() }}</small>
+                            <small>{{ $reply->created_at->diffForHumans() }}</small>
                         </div>
                         <div class="d-flex">
                             @if ($reply->parent_id != null)

@@ -39,7 +39,6 @@ class BookFactory extends Factory
                         ->implode(''),
             'price' => mt_rand(50000, 200000),
             'stock' => mt_rand(1, 20),
-            'rating' => $faker->randomFloat(2, 3, 5)
         ];
     }
 

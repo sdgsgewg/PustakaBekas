@@ -29,7 +29,8 @@
 
             <div class="content-section mt-2" id="haveOrder">
                 @foreach ($transactions as $transaction)
-                    <div class="transaction-card" data-status="{{ $transaction->transaction_status }}">
+                    <div class="transaction-card" data-status="{{ $transaction->transaction_status }}"
+                        data-created-at="{{ $transaction->created_at->toIso8601String() }}">
                         @include('component.transaction.orderReqCard', ['transaction' => $transaction])
                     </div>
                 @endforeach

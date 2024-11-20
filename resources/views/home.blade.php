@@ -8,7 +8,7 @@
         <div class="col-11">
             <div class="background position-relative overflow-hidden p-3 p-md-5 text-center bg-body-tertiary">
                 <div class="text-content col-md-8 mx-auto my-5">
-                    <h1 class="display-3 fw-bold">Designed for all book lovers</h1>
+                    <h1 class="display-3 fw-bold">Designed for All Book Lovers</h1>
                     <h3 class="fw-normal text-muted mb-4">
                         Buy any books you want with PustakaBekas
                     </h3>
@@ -33,41 +33,40 @@
 
     <div class="row justify-content-center mt-5">
         <div class="col-11">
-            @if ($trendingBooks->count())
-                <div class="title mb-4">
-                    <h2>Trending</h2>
-                    <hr>
-                </div>
+            <div class="title mb-4">
+                <h2>Trending</h2>
+                <hr>
+            </div>
+            @if ($trendingBooks->isNotEmpty())
                 <div class="row d-flex flex-wrap">
                     @foreach ($trendingBooks as $book)
-                        <div class="col-12 col-md-6 col-lg-4 mb-4">
-                            @include('component.card')
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4">
+                            @include('component.card', ['book' => $book])
                         </div>
                     @endforeach
                 </div>
             @else
-                <p class="text-center fs-4">No book found.</p>
+                @include('component.books.noBook')
             @endif
         </div>
     </div>
 
-
     <div class="row justify-content-center mt-5">
         <div class="col-11">
+            <div class="title mb-4">
+                <h2>Recently Uploaded Books</h2>
+                <hr>
+            </div>
             @if ($latestBooks->count())
-                <div class="title mb-4">
-                    <h2>Recently Uploaded Books</h2>
-                    <hr>
-                </div>
                 <div class="row d-flex flex-wrap">
                     @foreach ($latestBooks as $book)
-                        <div class="col-12 col-sm-6 col-lg-4 mb-4">
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4">
                             @include('component.card')
                         </div>
                     @endforeach
                 </div>
             @else
-                <p class="text-center fs-4">No book found.</p>
+                @include('component.books.noBook')
             @endif
         </div>
     </div>

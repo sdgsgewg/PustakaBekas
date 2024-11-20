@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('about') ? 'active' : '' }}" href="/about">About</a>
+                            <a class="nav-link {{ Request::is('about') ? 'active' : '' }}" href="/about">About Us</a>
                         </li>
 
                         <li class="nav-item">

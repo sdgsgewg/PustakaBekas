@@ -14,7 +14,7 @@
                     @if ($category->books->count())
                         <div class="d-flex justify-content-between align-items-center category-header mb-3">
                             <h2 class="category-title">{{ $category->name }}</h2>
-                            <a href="{{ route('books.index', ['category' => $category->slug]) }}"
+                            <a href="{{ route('books.category', ['category' => $category->slug]) }}"
                                 class="d-flex align-items-center view-all-link btn btn-primary">
                                 View All <i class="bi bi-arrow-right-circle ms-2"></i>
                             </a>
@@ -28,7 +28,7 @@
                             data-book-amount="{{ $bookAmount }}">
 
                             <div class="carousel-inner">
-                                @foreach ($category->books->take(6) as $index => $book)
+                                @foreach ($category->books()->latest()->take(6)->get() as $index => $book)
                                     <div class="carousel-item @if ($index === 0) active @endif">
                                         @include('component.card')
                                     </div>
@@ -41,7 +41,7 @@
                     @endif
                 @endforeach
             @else
-                @include('books.noBook')
+                @include('component.books.noBook')
             @endif
         </div>
     </div>

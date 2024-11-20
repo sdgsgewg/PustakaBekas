@@ -8,7 +8,21 @@ document.addEventListener("DOMContentLoaded", function () {
     function displayContent(selectedStatus) {
         let hasOrder = false;
 
-        transactionCards.forEach((card) => {
+        // Convert NodeList to an array to apply sort
+        let filteredCards = Array.from(transactionCards);
+
+        // Sort transactions if status is 'Completed'
+        if (selectedStatus === "Completed") {
+            // Sort transaction cards by the created_at timestamp (most recent first)
+            filteredCards.sort((a, b) => {
+                const aCreatedAt = parseInt(a.getAttribute("data-created-at"));
+                const bCreatedAt = parseInt(b.getAttribute("data-created-at"));
+                return bCreatedAt - aCreatedAt; // Sort in descending order (newest first)
+            });
+        }
+
+        // Filter and display cards based on selected status
+        filteredCards.forEach((card) => {
             if (card.getAttribute("data-status") === selectedStatus) {
                 card.style.display = "block";
                 hasOrder = true;
@@ -29,10 +43,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Set initial active link and display filtered content based on it
     function initialize() {
-        let activeLink = document.querySelector(".nav-underline .nav-link.active");
+        let activeLink = document.querySelector(
+            ".nav-underline .nav-link.active"
+        );
         if (!activeLink) {
             // If no link is active, set "Pending" as default
-            activeLink = document.querySelector('.nav-underline .nav-link[data-status="Pending"]');
+            activeLink = document.querySelector(
+                '.nav-underline .nav-link[data-status="Pending"]'
+            );
             activeLink.classList.add("active");
         }
         // Display content for the current active link's status

@@ -41,8 +41,9 @@
                     <p class="fs-5">
                         With user-friendly tools, you can upload photos, provide detailed descriptions, and set prices to
                         ensure
-                        transparent and seamless transactions. Our chat feature fosters direct communication, making
-                        negotiations and coordination easy.
+                        transparent and seamless transactions. 
+                        {{-- Our chat feature fosters direct communication, making
+                        negotiations and coordination easy. --}}
                     </p>
                     <p class="fs-5">
                         We’re more than a marketplace—we’re a community for book lovers, promoting affordability,

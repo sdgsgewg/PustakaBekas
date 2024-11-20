@@ -9,15 +9,11 @@
                     class="bi bi-arrow-left me-2"></i> Back</a> --}}
 
             <h1 class="mt-2 mb-3">{{ $book['title'] }}</h1>
-            <div class="d-flex flex-row gap-2">
+            <div class="mb-3">
                 <p>
                     By.
                     <a href="{{ route('books.seller', ['seller' => $book->seller->username]) }}" class="text-decoration-none">
                         {{ $book->seller->name }}</a>
-                </p>
-                <p>|</p>
-                <p class="text-warning">
-                    {{ $book->rating }}
                 </p>
             </div>
 
@@ -33,7 +29,7 @@
                 </div>
                 <div class="col-7 d-flex flex-column ms-5">
                     <p>Category:
-                        <a href="{{ route('books.index', ['category' => $book->category->slug]) }}"
+                        <a href="{{ route('books.category', ['category' => $book->category->slug]) }}"
                             class="text-decoration-none">{{ $book->category->name }}</a>
                     </p>
                     <p>Genre:
@@ -41,10 +37,16 @@
                             @if (!$loop->first)
                                 ,
                             @endif
-                            <a href="{{ route('books.index', ['genre' => $genre->slug]) }}"
+                            <a href="{{ route('books.genre', ['genre' => $genre->slug]) }}"
                                 class="text-decoration-none">{{ $genre->name }}</a>
                         @endforeach
                     </p>
+                    @php
+                        $averageRating = number_format($book->reviews()->avg('rating'), 2);
+                    @endphp
+                    @if ($averageRating != 0.0)
+                        <p>Rating: <span class="text-warning">{{ $averageRating }}</span></p>
+                    @endif
 
                     <div class="d-flex flex-row gap-3 mt-auto">
                         @if (auth()->check() && auth()->user()->id !== $book->seller->id)
@@ -79,8 +81,9 @@
                 <hr>
                 <h2>Synopsis</h2>
                 <p>{!! $book->synopsis !!}</p>
-                <hr>
             </article>
+
+            @include('component.books.book-review-section')
 
             @include('component.books.comments.book-comment-section')
         </div>

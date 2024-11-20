@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Book;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
@@ -21,7 +20,14 @@ Route::resources([
     'categories' => CategoryController::class
 ]);
 
-Route::get('books/seller/{seller:username}', [BookController::class, 'seller'])->name('books.seller');
+Route::middleware('auth')->get('/books/{book:slug}', [BookController::class, 'show'])->name('books.show');
+Route::get('/filtered-books', [BookController::class, 'filter'])->name('books.filter');
+
+Route::prefix('books')->as('books.')->group(function() {
+    Route::get('/category/{category:slug}', [BookController::class, 'showBookCategory'])->name('category');
+    Route::get('/genre/{genre:slug}', [BookController::class, 'showBookGenre'])->name('genre');
+    Route::get('/seller/{seller:username}', [BookController::class, 'showSeller'])->name('seller');
+});
 
 Route::get('book/genres/{categorySlug:slug}', [BookController::class, 'getGenresByCategory'])->name('bookFilter.getGenresByCategory');
 
@@ -39,6 +45,7 @@ Route::middleware('auth')->prefix('users')->as('users.')->group(function() {
 
 Route::resource('/comments', CommentController::class)->middleware('auth');
 Route::resource('/replies', ReplyController::class)->middleware('auth');
+Route::post('/sendFeedback', [BookController::class, 'sendFeedback'])->name('sendFeedback');
 
 Route::middleware('auth')->prefix('carts')->as('carts.')->group(function () {
     // Buat checkout buku
@@ -59,9 +66,6 @@ Route::middleware('auth')->prefix('transactions')->as('transactions.')->group(fu
 
 Route::middleware('auth')->prefix('trades')->as('trades.')->group(function () {
     Route::get('/tradeRequest', [TradeController::class, 'tradeRequest'])->name('tradeRequest');
-
-    Route::post('/propose', [TradeController::class, 'proposeTrade'])->name('propose');
-    Route::post('/respond', [TradeController::class, 'respondToTrade'])->name('respond');
 
     Route::post('updateStatus/{trade}', [TradeController::class, 'updateStatus'])->name('updateStatus');
 

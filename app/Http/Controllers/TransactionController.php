@@ -41,7 +41,10 @@ class TransactionController extends Controller
 
     public function show(Transaction $transaction)
     {
-        //
+        return view('transaction.detail', [
+            'title' => 'Transaction Detail',
+            'transaction' => $transaction,
+        ]);
     }
 
     public function orderRequest()
@@ -97,6 +100,10 @@ class TransactionController extends Controller
                 'transaction_status' => 'Pending'
             ]);
 
+            $transaction->payment_time = now();
+            $transaction->order_number = 'TX-' . now()->format('Ymd') . '-' . str_pad($transaction->id, 6, '0', STR_PAD_LEFT);
+            $transaction->save();
+
             foreach ($sellerGroup['items'] as $book) {
                 if (!isset($book['pivot']['quantity'])) {
                     return redirect()->back()->withErrors(['quantity' => 'Quantity is missing for some books.']);
@@ -150,7 +157,10 @@ class TransactionController extends Controller
         $transaction = Transaction::findOrFail($transactionId);
         $newStatus = $request->choice;
 
-        if ( in_array( $newStatus, ['Returned', 'Cancelled'] ) ) {
+        if($newStatus === "Delivered") {
+            $transaction->shipping_time = now();
+            $transaction->save();
+        } else if ( in_array( $newStatus, ['Returned', 'Cancelled'] ) ) {
             foreach( $transaction->books as $book ){
                 $bookModel = Book::find($book->id);
                 $bookModel->stock += $book->pivot->quantity;
@@ -159,6 +169,7 @@ class TransactionController extends Controller
         } else if ($newStatus === "Completed") {
             if (!$transaction->isReceived) {
                 $transaction->isReceived = true;
+                $transaction->completion_time = now();
                 $transaction->save();
                 return redirect()->back()->with('success', 'Order has been received');
             }

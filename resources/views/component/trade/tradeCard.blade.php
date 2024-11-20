@@ -19,12 +19,34 @@
         ];
     @endphp
 
-    @if (in_array($trade->trade_status, ['Pending', 'Accepted', 'Completed', 'Cancelled']))
-        <div class="col-12 mt-2 d-flex flex-row justify-content-end">
-            <button class="btn btn-primary">View Detail</button>
-        </div>
-    @else
-        <div class="col-12 mt-2 d-flex flex-row justify-content-end gap-3">
+    <div class="col-12 mt-2 d-flex flex-row justify-content-end gap-3">
+
+        @if (in_array($trade->trade_status, ['Pending', 'Accepted', 'Completed', 'Cancelled']))
+            <div class="col-12 mt-2 d-flex flex-row justify-content-end">
+                <a href="{{ route('trades.show', ['trade' => $trade]) }}" class="btn btn-primary">View
+                    Detail
+                </a>
+            </div>
+        @elseif ($trade->trade_status === 'In Progress')
+            @if (!$trade->isReceived)
+                @foreach ($trade->nextStatuses as $status)
+                    @if ($status === 'Completed')
+                        <form action="{{ route('trades.updateStatus', ['trade' => $trade->id]) }}" method="POST">
+                            @csrf
+                            <input name="choice" type="hidden" value="{{ $status }}">
+                            <button type="submit"
+                                class="btn {{ in_array($status, ['Cancelled', 'Returned']) ? 'btn-danger' : 'btn-primary' }}">
+                                {{ $statusLabels[$status] ?? $status }}
+                            </button>
+                        </form>
+                    @endif
+                @endforeach
+            @else
+                <a href="{{ route('trades.show', ['trade' => $trade]) }}" class="btn btn-primary">View
+                    Detail
+                </a>
+            @endif
+        @else
             @foreach ($trade->nextStatuses as $status)
                 @if ($status === 'Pending')
                     <button type="button" class="btn {{ $status === 'Cancelled' ? 'btn-danger' : 'btn-primary' }}"
@@ -40,12 +62,14 @@
                     <form action="{{ route('trades.updateStatus', ['trade' => $trade->id]) }}" method="POST">
                         @csrf
                         <input name="choice" type="hidden" value="{{ $status }}">
-                        <button type="submit" class="btn {{ $status === 'Cancelled' ? 'btn-danger' : 'btn-primary' }}">
+                        <button type="submit"
+                            class="btn {{ $status === 'Cancelled' ? 'btn-danger' : 'btn-primary' }}">
                             {{ $statusLabels[$status] ?? $status }}
                         </button>
                     </form>
                 @endif
             @endforeach
-        </div>
-    @endif
+        @endif
+
+    </div>
 </div>

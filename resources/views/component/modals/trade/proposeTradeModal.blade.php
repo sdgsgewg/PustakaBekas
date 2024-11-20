@@ -9,7 +9,7 @@
             </div>
 
             <!-- Form for proposing a trade -->
-            <form action="{{ route('trades.propose') }}" method="POST">
+            <form action="{{ route('trades.store') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">

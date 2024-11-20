@@ -17,13 +17,11 @@
                 </div>
             @endif
 
-            <div class="mb-4" style="width: 200px; height: 200px;">
+            <div class="img-thumbnail rounded-circle overflow-hidden mb-4" style="width: 200px; height: 200px;">
                 @if ($user->image)
-                    <img src="{{ asset('storage/' . $user->image) }}" alt="{{ $user->name }}"
-                        class="img-thumbnail rounded-circle" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="{{ asset('storage/' . $user->image) }}" alt="{{ $user->name }}" class="rounded-circle">
                 @else
-                    <img src="{{ asset('img/male icon.png') }}" alt="{{ $user->name }}"
-                        class="img-thumbnail rounded-circle" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="{{ asset('img/' . $user->gender . ' icon.png') }}" alt="{{ $user->name }}" class="rounded-circle">
                 @endif
             </div>
 

@@ -72,6 +72,11 @@ class User extends Authenticatable
         return $this->hasMany(Trade::class, 'user_2_id');
     }
 
+    public function ratings()
+    {
+        return $this->hasMany(BookRating::class);
+    }
+
     public function getRouteKeyName()
     {
         return 'username';

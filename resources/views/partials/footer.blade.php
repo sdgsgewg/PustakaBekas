@@ -8,29 +8,20 @@
             <small class="d-block mt-2 mb-3 text-body-secondary">&copy; 2024</small>
         </div>
         <div class="col-6 col-md">
-            <h5>Features</h5>
+            <h5>Contact Us</h5>
             <ul class="list-unstyled text-small">
                 <li>
-                    <a class="link-secondary text-decoration-none" href="#">Cool stuff</a>
+                    <a class="link-secondary text-decoration-none" href="#">Email: info@pustakabekas.com</a>
                 </li>
                 <li>
-                    <a class="link-secondary text-decoration-none" href="#">Random feature</a>
+                    <a class="link-secondary text-decoration-none" href="#">Phone: +62 123 456 789</a>
                 </li>
                 <li>
-                    <a class="link-secondary text-decoration-none" href="#">Team feature</a>
+                    <a class="link-secondary text-decoration-none" href="#">Address: Jl. Example Street,
+                        Jakarta</a>
                 </li>
-                <li>
-                    <a class="link-secondary text-decoration-none" href="#">Stuff for developers</a>
-                </li>
-                <li>
-                    <a class="link-secondary text-decoration-none" href="#">Another one</a>
-                </li>
-                <li>
-                    <a class="link-secondary text-decoration-none" href="#">Last time</a>
-                </li>
-            </ul>
         </div>
-        <div class="col-6 col-md">
+        {{-- <div class="col-6 col-md">
             <h5>Resources</h5>
             <ul class="list-unstyled text-small">
                 <li>
@@ -63,7 +54,7 @@
                     <a class="link-secondary text-decoration-none" href="#">Gaming</a>
                 </li>
             </ul>
-        </div>
+        </div> --}}
         <div class="col-6 col-md">
             <h5>About</h5>
             <ul class="list-unstyled text-small">

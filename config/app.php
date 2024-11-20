@@ -95,6 +95,12 @@ return [
     |
     */
 
+    // 'providers' => [
+    //     // Other service providers...
+    //     App\Providers\UnsplashServiceProvider::class,
+    // ],
+
+
     'cipher' => 'AES-256-CBC',
 
     'key' => env('APP_KEY'),

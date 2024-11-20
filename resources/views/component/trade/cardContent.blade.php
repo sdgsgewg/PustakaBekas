@@ -1,6 +1,6 @@
 @php
-    $offeredBook = $trade->latestOfferedBook(); // Get the most recent book offered
     $targetBook = $trade->book2;
+    $offeredBook = $trade->booksOffered->last();
 @endphp
 
 {{-- Yang offer trade --}}

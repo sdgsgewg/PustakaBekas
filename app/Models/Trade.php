@@ -65,14 +65,13 @@ class Trade extends Model
 
     public function booksOffered()
     {
-        return $this->belongsToMany(Book::class, 'trade_books')->orderBy('created_at', 'desc'); // Order by latest offer
+        return $this->belongsToMany(Book::class, 'trade_books');
     }
 
-    // Retrieve the latest offered book
-    public function latestOfferedBook()
-    {
-        return $this->booksOffered()->first(); // This will now return the latest book
-    }
+    // public function latestOfferedBook()
+    // {
+    //     return $this->booksOffered()->latest()->first();
+    // }
 
     public function book2()
     {

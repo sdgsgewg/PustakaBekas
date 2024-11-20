@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Book extends Model
 {
@@ -12,33 +13,6 @@ class Book extends Model
 
     protected $guarded = ['id'];
     protected $with = ['category', 'genres', 'seller'];
-
-    public function scopeFilter($query, array $filters)
-    {
-        $query->when($filters['search'] ?? false, fn($query, $search) =>
-            $query->where(fn($query) =>
-                 $query->where('title', 'like', '%' . $search . '%')
-             )
-         );
-
-         $query->when($filters['category'] ?? false, function($query, $category) {
-            return $query->whereHas('category', function($query) use ($category) {
-                $query->where('slug', $category);
-            });
-        });
-
-        $query->when( $filters['genre'] ?? false, function($query, $genre) {
-            return $query->whereHas('genres', function($query) use ($genre) {
-                $query->where('slug', $genre);
-            });
-        });
-
-        $query->when( $filters['seller'] ?? false, fn($query, $seller) => 
-            $query->whereHas('seller', fn($query) => 
-                $query->where('username', $seller)
-            )
-        );
-    }
 
     public function category()
     {
@@ -65,13 +39,28 @@ class Book extends Model
     public function transactions()
     {
         return $this->belongsToMany(Transaction::class, 'transaction_books')
-        ->withPivot('quantity', 'sub_total_price')
+        ->withPivot('id', 'quantity', 'sub_total_price')
         ->withTimestamps();
     }
 
     public function trades()
     {
         return $this->belongsToMany(Trade::class, 'trade_books');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(BookReview::class, 'book_id', 'id');
+    }
+
+    public function reviewByUser($userId)
+    {
+        return $this->reviews()->where('user_id', $userId)->first();
+    }
+
+    public function averageRating()
+    {
+        return $this->reviews()->avg('rating') ?: 0;
     }
 
     public function scopeBooksWithinPriceRange($query, $sellerId, $targetPrice, $percentage = 0.1)
@@ -82,6 +71,13 @@ class Book extends Model
         return $query->where('seller_id', $sellerId)
                     ->whereBetween('price', [$lowerBound, $upperBound]);
     }
+
+    // public function recalculateRating()
+    // {
+    //     $this->rating = $this->reviews()->avg('rating') ?? 0;
+    //     $this->rating_count = $this->reviews()->count();
+    //     $this->save();
+    // }
 
     public function getRouteKeyName(): string
     {

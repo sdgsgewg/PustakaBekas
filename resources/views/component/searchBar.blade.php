@@ -1,4 +1,4 @@
-<form action="/books">
+<form action="{{ route('books.filter') }}">
     @if (request('category'))
         <input type="hidden" name="category" value="{{ request('category') }}">
     @endif

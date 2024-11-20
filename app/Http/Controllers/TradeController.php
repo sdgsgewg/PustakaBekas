@@ -57,7 +57,18 @@ class TradeController extends Controller
         ]);
     }
 
-    public function proposeTrade(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
         // Validate the incoming data
         $request->validate([
@@ -102,27 +113,14 @@ class TradeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(Trade $trade)
     {
-        //
+        return view('trade.detail', [
+            'title' => 'Trade Detail',
+            'trade' => $trade,
+        ]);
     }
 
     /**
@@ -193,8 +191,17 @@ class TradeController extends Controller
         $trade = Trade::findOrFail($tradeId);
         $newStatus = $request->choice;
 
-        if ( $newStatus === 'Cancelled' ) {
-            $book1Model = Book::find($trade->latestOfferedBook()->id);
+        if ($newStatus === 'Accepted') {
+            $book1Model = Book::find($trade->booksOffered->last()->id);
+            $book1Model->stock -= 1;
+
+            $book2Model = Book::find($trade->book_2_id);
+            $book2Model->stock -= 1;
+
+            $book1Model->save();
+            $book2Model->save();
+        } else if ( $newStatus === 'Cancelled' ) {
+            $book1Model = Book::find($trade->booksOffered->last()->id);
             $book1Model->stock += 1;
 
             $book2Model = Book::find($trade->book_2_id);

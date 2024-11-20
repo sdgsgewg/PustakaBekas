@@ -11,6 +11,7 @@ class Transaction_Book extends Model
 
     protected $table = 'transaction_books';
     protected $guarded = ['id'];
+    protected $with = ['transaction', 'book'];
 
     public function transaction()
     {
