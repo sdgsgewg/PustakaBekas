@@ -25,6 +25,16 @@ img {
 .color-inherit {
     color: inherit;
 }
+a.disabled {
+    pointer-events: none;
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.card-disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
 
 .form-signin .form-floating:focus-within {
     z-index: 2;

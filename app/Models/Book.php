@@ -67,8 +67,10 @@ class Book extends Model
     {
         $lowerBound = $targetPrice * (1 - $percentage);
         $upperBound = $targetPrice * (1 + $percentage);
+        $zero = 0;
 
         return $query->where('seller_id', $sellerId)
+                    ->where('stock', '>', $zero)
                     ->whereBetween('price', [$lowerBound, $upperBound]);
     }
 

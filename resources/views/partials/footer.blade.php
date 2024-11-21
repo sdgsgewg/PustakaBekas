@@ -45,7 +45,7 @@
                     <ul class="d-flex flex-column list-unstyled text-small gap-1">
                         <li class="d-inline-flex"><i class="bi bi-instagram me-2"></i><a
                                 class="link-secondary text-decoration-none"
-                                href="https://www.instagram.com/pustakabekas" target="_blank">Instagram</a></li>
+                                href="https://www.instagram.com/pustaka.bekas/" target="_blank">Instagram</a></li>
                         <li class="d-inline-flex"><i class="bi bi-tiktok me-2"></i><a
                                 class="link-secondary text-decoration-none" href="https://www.tiktok.com/@pustakabekas"
                                 target="_blank">TikTok</a></li>

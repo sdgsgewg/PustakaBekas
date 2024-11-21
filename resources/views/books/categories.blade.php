@@ -21,7 +21,7 @@
             <div class="row d-flex flex-wrap">
                 @foreach ($categories as $category)
                     <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4 d-flex align-items-stretch">
-                        <a href="{{ route('books.index', ['category' => $category->slug]) }}" class="w-100">
+                        <a href="{{ route('books.category', ['category' => $category->slug]) }}" class="w-100">
                             <div class="card text-bg-dark h-100" style="width: 100%; height: 300px;">
 
                                 @if ($category->image)

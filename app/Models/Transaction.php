@@ -14,11 +14,11 @@ class Transaction extends Model
     protected $with = ['buyer' , 'seller'];
 
     const STATUSES = [
-        'Not Paid',
+        // 'Not Paid',
         'Pending',
         'Accepted',
         'Delivered',
-        'Returned',
+        // 'Returned',
         'Completed',
         'Cancelled',
     ];

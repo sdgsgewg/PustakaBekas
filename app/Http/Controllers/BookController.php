@@ -45,7 +45,7 @@ class BookController extends Controller
     
     public function filter(Request $request)
     {
-        $title = 'Filtered Books';
+        $title = 'All Books';
         $query = Book::latest();
 
         // Apply filters
