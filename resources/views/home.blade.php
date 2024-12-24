@@ -2,9 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ secure_asset('css/home/home.css') }}?v={{ time() }}">
-    <link rel="stylesheet" href="../../public/css/home/home.css">
     <link rel="stylesheet" href="{{ secure_asset('css/books/style.css') }}?v={{ time() }}">
-    <link rel="stylesheet" href="../../public/css/books/style.css">
 @endsection
 
 @section('container')
