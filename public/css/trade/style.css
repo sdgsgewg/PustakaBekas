@@ -1,0 +1,19 @@
+.trade-card {
+    width: 100%;
+    height: fit-content;
+}
+
+.img-no-trade {
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+}
+
+.img-wrapper {
+    height: 100%;
+    overflow: hidden;
+}
+
+.card-info p {
+    margin: 0;
+}
