@@ -12,3 +12,6 @@
 
 {{-- Trix Editor --}}
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+
+{{-- Icon tab url --}}
+<link rel="icon" href="{{ secure_asset('img/PustakaBekas.png') }}" type="image/png">

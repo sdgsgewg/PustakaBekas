@@ -4,7 +4,11 @@
         "api/index.php": { "runtime": "vercel-php@0.6.1" }
     },
     "routes": [
-        { "handle": "filesystem" },
+        { "src": "/css/(.*)", "dest": "/public/css/$1" },
+        { "src": "/js/(.*)", "dest": "/public/js/$1" },
+        { "src": "/img/(.*)", "dest": "/public/img/$1" },
+        { "src": "/storage/(.*)", "dest": "/public/storage/$1" },
+        { "src": "/favicon.ico", "dest": "/public/favicon.ico" },
         { "src": "/(.*)", "dest": "/api/index.php" }
     ],
     "env": {
