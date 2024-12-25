@@ -53,7 +53,6 @@ Route::middleware('auth')->prefix('carts')->as('carts.')->group(function () {
 
     // buat manage data-data cart
     Route::resource('/', CartController::class)->parameters(['' => 'cart'])->except(['create', 'edit']);
-    Route::post('store/{book:slug}', [CartController::class, 'store'])->name('store');
     Route::post('update-is-checked', [CartController::class, 'updateIsChecked'])->name('updateIsChecked');
     Route::post('update-quantity', [CartController::class, 'updateQuantity'])->name('updateQuantity');
 });
