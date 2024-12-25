@@ -11,7 +11,7 @@
     @endphp
 
     <div class="genre position-absolute px-3 py-2 {{ $book->stock > 0 ? 'cursor-pointer' : 'cursor-not-allowed' }}"
-        onclick="{{ $book->stock > 0 ? "window.location.href'" . route('books.genre', ['genre' => $genre->slug]) . "'" : '' }}">
+        onclick="{{ $book->stock > 0 ? "window.location.href='" . route('books.genre', ['genre' => $genre->slug]) . "'" : '' }}">
         <span class="text-white text-decoration-none">
             {{ $genre->name }}
         </span>

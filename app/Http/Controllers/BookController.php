@@ -14,22 +14,37 @@ use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
+    // public function index()
+    // {
+    //     $title = 'All Books';
+    //     $books = Book::latest()->get();
+    
+    //     // Group books by category, then by genre within each category
+    //     $booksByCategory = $books->groupBy('category_id')->map(function ($categoryBooks) {
+    //         return $categoryBooks->groupBy(function ($book) {
+    //             // Group by all genres of the book (if multiple genres)
+    //             return $book->genres->pluck('id')->toArray(); // Return an array of genre IDs
+    //         });
+    //     });
+    
+    //     return view('books.books', [
+    //         'title' => $title,
+    //         'booksByCategory' => $booksByCategory,
+    //         'categories' => Category::all(),
+    //         'genres' => Genre::all(),
+    //         'sellers' => User::has('books')->get(),
+    //         'user' => Auth::user()
+    //     ]);
+    // }
+
     public function index()
     {
         $title = 'All Books';
-        $books = Book::latest()->get();
-    
-        // Group books by category, then by genre within each category
-        $booksByCategory = $books->groupBy('category_id')->map(function ($categoryBooks) {
-            return $categoryBooks->groupBy(function ($book) {
-                // Group by all genres of the book (if multiple genres)
-                return $book->genres->pluck('id')->toArray(); // Return an array of genre IDs
-            });
-        });
+        $books = Book::latest()->paginate(8);
     
         return view('books.books', [
             'title' => $title,
-            'booksByCategory' => $booksByCategory,
+            'books' => $books,
             'categories' => Category::all(),
             'genres' => Genre::all(),
             'sellers' => User::has('books')->get(),
@@ -193,7 +208,7 @@ class BookController extends Controller
         ->leftJoin('book_reviews', 'books.id', '=', 'book_reviews.book_id')
         ->groupBy('books.id')
         ->orderByDesc('avg_rating')
-        ->paginate(12);
+        ->paginate(8);
 
         $averageRating = $seller->books->map(function ($book) {
             return $book->reviews->avg('rating');
