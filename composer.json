@@ -12,8 +12,7 @@
         "php": "^8.2",
         "cviebrock/eloquent-sluggable": "^11.0",
         "laravel/framework": "^11.9",
-        "laravel/tinker": "^2.9",
-        "ext-openssl": "1.0.*"
+        "laravel/tinker": "^2.9"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",

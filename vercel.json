@@ -13,7 +13,7 @@
     ],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "true",
+        "APP_DEBUG": "false",
         "APP_URL": "https://pustaka-bekas.vercel.app",
         "APP_KEY": "base64:L0Wx9d6nBpoiCmSWtb8XrpvxCDU8yRwDwXwuos/UVeE=",
 
