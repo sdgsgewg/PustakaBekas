@@ -144,7 +144,6 @@ class TransactionController extends Controller
                     'book_id' => $book['id'],
                     'quantity' => $quantity,
                     'sub_total_price' => $book['price'] * $quantity,
-                    'transaction_status' => 'Pending'
                 ]);
 
                 $bookIds[] = $book['id'];
