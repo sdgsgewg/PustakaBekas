@@ -47,9 +47,10 @@
 
                     <div class="d-flex flex-row gap-3 mt-auto">
                         @if (auth()->check() && auth()->user()->id !== $book->seller->id)
-                            <form action="{{ route('carts.store', ['book' => $book->slug]) }}" method="POST"
+                            <form action="{{ route('carts.store') }}" method="POST"
                                 class="d-inline">
                                 @csrf
+                                <input type="hidden" name="book_id" value="{{ $book->id }}">
                                 <button type={{ $book->stock > 0 ? 'submit' : 'button' }}
                                     class="btn {{ $book->stock > 0 ? 'btn-success' : 'btn-secondary' }} d-inline-flex">
                                     <i class="bi bi-cart-plus me-2"></i>Add to Cart

@@ -40,7 +40,7 @@
             <div class="content-section mt-2" id="noTrade" style="display: none;">
                 <div class="d-flex flex-column align-items-center">
                     <div class="img-no-trade">
-                        <img src="{{ asset('img/notradeReq.png') }}" alt="">
+                        <img src="{{ secure_asset('img/noTradeReq.png') }}" alt="">
                     </div>
                     <h5 class="mt-1">You still don't have any trade request yet</h5>
                 </div>
@@ -50,5 +50,5 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/trade/script.js') }}?v={{ time() }}"></script>
+    <script src="{{ secure_asset('js/trade/script.js') }}?v={{ time() }}"></script>
 @endsection

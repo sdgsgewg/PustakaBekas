@@ -52,9 +52,9 @@ Route::middleware('auth')->prefix('carts')->as('carts.')->group(function () {
     Route::get('checkout', [CartController::class, 'checkout'])->name('checkout');
 
     // buat manage data-data cart
-    Route::resource('/', CartController::class)->parameters(['' => 'cart'])->except(['create', 'edit']);
     Route::post('update-is-checked', [CartController::class, 'updateIsChecked'])->name('updateIsChecked');
     Route::post('update-quantity', [CartController::class, 'updateQuantity'])->name('updateQuantity');
+    Route::resource('/', CartController::class)->parameters(['' => 'cart']);
 });
 
 Route::middleware('auth')->prefix('transactions')->as('transactions.')->group(function () {

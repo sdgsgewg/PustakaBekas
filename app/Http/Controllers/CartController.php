@@ -111,8 +111,10 @@ class CartController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Book $book)
+    public function store(Request $request)
     {
+        $book = Book::find($request->book_id);
+        
         if (!$book) {
             return redirect()->back()->with('error', 'Book not found.');
         }
@@ -120,7 +122,7 @@ class CartController extends Controller
         $user = Auth::user();
         
         $cart = Cart::firstOrCreate(['user_id' => $user->id]);
-        
+
         $cartBook = $cart->books()->where('book_id', $book->id)->first();
 
         if ($cartBook) {
@@ -135,7 +137,7 @@ class CartController extends Controller
             ]);
         }
         
-        return redirect('/carts')->with('success', 'Book added to cart!');
+        return redirect()->route('carts.index')->with('success', 'Book added to cart!');
     }
 
     /**

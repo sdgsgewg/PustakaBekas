@@ -42,7 +42,7 @@
             <div class="content-section mt-2" id="noTrade" style="display: none;">
                 <div class="d-flex flex-column align-items-center">
                     <div class="img-no-trade">
-                        <img src="{{ asset('img/noTrade.png') }}" alt="">
+                        <img src="{{ secure_asset('img/noTrade.png') }}" alt="">
                     </div>
                     <h5 class="mt-1">You don't have any trades yet</h5>
                 </div>
